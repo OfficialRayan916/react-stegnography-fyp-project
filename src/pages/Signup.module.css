@@ -1,0 +1,144 @@
+body {
+  background-image: url("../Assets/cover.png");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+
+.section {
+  width: 80vh;
+  height: 100vh;
+  background-color: white;
+  float: right;
+}
+
+.head {
+    margin-left: 8vh;
+    margin-top: 15vh;
+}
+
+.head h2 {
+    color: #423B50;
+    font-size: 4.5vh;
+    font-weight: 500;
+}
+
+.head p {
+    color: #6C6777;
+    font-size: 2.7vh;
+}
+
+.head h2 {
+    margin-bottom: 8px;
+}
+
+.head p {
+    margin-top: 0;
+}
+
+.inputBox {
+    display: flex;
+    flex-direction: column;
+    gap: 4vh;
+    margin-left: 8vh;
+    margin-top: 5vh;
+}
+
+.userBox,
+.emailBox,
+.passwordBox {
+    width: 63vh;
+    height: 7vh;
+    border: 1px solid #c9c7cb;
+    border-radius: 5px;
+}
+
+.userBox:hover,
+.emailBox:hover,
+.passwordBox:hover {
+    border: 1px solid #704b95;
+    border-radius: 5px;
+}
+
+.userBox:focus,
+.emailBox:focus,
+.passwordBox:focus {
+    border: 2px solid #8C57FF;
+    border-radius: 5px;
+    outline: none;
+}
+
+.userBox::placeholder,
+.emailBox::placeholder,
+.passwordBox::placeholder {
+    color: #a9a8ac;
+    font-size: 3vh;
+    padding-left: 2.5vh;
+}
+
+.checkbox {
+    display: flex;
+    flex-direction: row;
+    gap: 1vh;
+    margin-left: 8vh;
+    margin-top: 3vh;
+}
+
+.checkbox input[type="checkbox"] {
+  transform: scale(1.5);
+  accent-color: #6c5ce7;
+}
+
+.agree {
+    color: rgb(86, 84, 84);
+    
+}
+.checkbox a {
+    text-decoration: none;
+    color: #7E4EE5;
+}
+
+.checkbox a:hover {
+    cursor: pointer;
+}
+
+.loginBtnDiv {
+    margin-left: 8.3vh;
+    margin-top: 4vh;
+}
+
+.loginBtn {
+    width: 64vh;
+    height: 7vh;
+    border: 0px;
+    border-radius: 6px;
+    color: white;
+    background-color: #8C57FF;
+}
+
+.loginBtn:hover {
+    background-color: #6457c4;
+    cursor: pointer;
+}
+
+.createAcc {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2vh;
+    margin-left: 15vh;
+}
+
+.createAcc p {
+    color: #818182;
+}
+
+.createAcc a {
+    text-decoration: none;
+    cursor: pointer;
+    color: #8C57FF;
+}
+
+.createAcc a:hover{
+    color: #5028a8;
+}
