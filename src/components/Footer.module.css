@@ -1,0 +1,118 @@
+.footer {
+  background: #13111C;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+
+.footerContent {
+  max-width: 1400px;
+  margin: auto;
+  padding: 70px 40px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 40px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.column h4,
+.newsletter h4 {
+  color: #2563EB;
+  font-weight: 600;
+}
+
+.column a {
+  color: #B8B8C7;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.column a:hover {
+  color: #2563EB;
+  transform: translateX(4px);
+}
+
+.newsletter p {
+  color: rgba(255,255,255,0.8);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.subscribe {
+  display: flex;
+  background: white;
+  border-radius: 50px;
+  overflow: hidden;
+  margin-bottom: 25px;
+}
+
+.subscribe input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 14px 18px;
+}
+
+.subscribe button {
+  border: none;
+  background: #2563EB;
+  color: #222;
+  font-weight: 600;
+  padding: 0 25px;
+  cursor: pointer;
+}
+
+.socials {
+  display: flex;
+  gap: 18px;
+  font-size: 20px;
+}
+
+.socials svg {
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.socials svg:hover {
+  transform: translateY(-4px);
+}
+
+.bottom {
+  border-top: 1px solid rgba(255,255,255,0.15);
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.bottom div {
+  display: flex;
+  gap: 20px;
+}
+
+.bottom span {
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+}
+
+@media (max-width: 1100px) {
+  .footerContent {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .footerContent {
+    grid-template-columns: 1fr;
+  }
+
+  .bottom {
+    flex-direction: column;
+    gap: 15px;
+  }
+}

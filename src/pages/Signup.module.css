@@ -1,15 +1,15 @@
-body {
-  background-image: url("../Assets/cover.png");
-  background-size: cover;
-  background-position: center;
-  height: 100vh;
+.signup {
+    background-image: url("../Assets/cover.png");
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
 }
 
 .section {
-  width: 80vh;
-  height: 100vh;
-  background-color: white;
-  float: right;
+    width: 80vh;
+    height: 100vh;
+    background-color: white;
+    float: right;
 }
 
 .head {
@@ -85,14 +85,15 @@ body {
 }
 
 .checkbox input[type="checkbox"] {
-  transform: scale(1.5);
-  accent-color: #6c5ce7;
+    transform: scale(1.5);
+    accent-color: #6c5ce7;
 }
 
 .agree {
     color: rgb(86, 84, 84);
-    
+
 }
+
 .checkbox a {
     text-decoration: none;
     color: #7E4EE5;
@@ -139,6 +140,6 @@ body {
     color: #8C57FF;
 }
 
-.createAcc a:hover{
+.createAcc a:hover {
     color: #5028a8;
 }

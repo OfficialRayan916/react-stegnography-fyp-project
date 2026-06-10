@@ -1,15 +1,15 @@
-body {
-  background-image: url("../Assets/cover.png");
-  background-size: cover;
-  background-position: center;
-  height: 100vh;
+.login {
+    background-image: url("../Assets/cover.png");
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
 }
 
 .section {
-  width: 80vh;
-  height: 100vh;
-  background-color: white;
-  float: right;
+    width: 80vh;
+    height: 100vh;
+    background-color: white;
+    float: right;
 }
 
 .head {
@@ -89,8 +89,8 @@ body {
 }
 
 .remem input[type="checkbox"] {
-  transform: scale(1.5);
-  accent-color: #6c5ce7;
+    transform: scale(1.5);
+    accent-color: #6c5ce7;
 }
 
 .checkbox a {
@@ -139,6 +139,6 @@ body {
     color: #8C57FF;
 }
 
-.createAcc a:hover{
+.createAcc a:hover {
     color: #5028a8;
 }
