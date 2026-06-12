@@ -38,7 +38,7 @@
 }
 
 .newsletter p {
-  color: rgba(255,255,255,0.8);
+  color: rgba(255, 255, 255, 0.8);
   line-height: 1.6;
   margin-bottom: 20px;
 }
@@ -83,7 +83,7 @@
 }
 
 .bottom {
-  border-top: 1px solid rgba(255,255,255,0.15);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
   padding: 20px 40px;
   display: flex;
   justify-content: space-between;
@@ -96,7 +96,7 @@
 }
 
 .bottom span {
-  color: rgba(255,255,255,0.7);
+  color: rgba(255, 255, 255, 0.7);
   cursor: pointer;
 }
 

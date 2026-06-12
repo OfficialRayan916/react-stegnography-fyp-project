@@ -1,0 +1,71 @@
+.toggleSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+.toggleWrapper {
+    position: relative;
+
+    width: 420px;
+    height: 40px;
+
+    background: #2563EB;
+    border: 1px solid #e5e7eb;
+    border-radius: 999px;
+    display: flex;
+    padding: 5px;
+    overflow: hidden;
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Sliding Indicator */
+.slider {
+    position: absolute;
+
+    top: 5px;
+    left: 5px;
+    width: calc(50% - 5px);
+    height: calc(95% - 7px);
+
+    background: #ffffff;
+    border-radius: 999px;
+    transition: all 0.35s ease;
+}
+
+.sliderRight {
+    left: calc(50%);
+}
+
+.toggleBtn {
+    flex: 1;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    z-index: 2;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    color: #ffffff;
+    transition: color 0.3s ease;
+}
+
+.modeText {
+    margin-top: 20px;
+    color: #6B7280;
+    font-size: 15px;
+}
+
+.modeText span {
+    color: #2563EB;
+    font-weight: 600;
+}
+
+.activeText {
+    color: rgb(0, 0, 0);
+}

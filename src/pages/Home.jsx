@@ -62,81 +62,81 @@ const features = [
 function Home() {
   return (
     <>
-    <section className={Styles.firstSection}>
+      <section className={Styles.firstSection}>
 
 
-      <Navbar />
+        <Navbar />
 
-      <div className={Styles.heroSection}>
+        <div className={Styles.heroSection}>
 
-        <div className={Styles.heroSecHP}>
-          <h1>Hide More Than Meets The Eye</h1>
-          <p>Your all-in-one steganography platform for securely hiding and extracting secret messages within images, audio, and video files. HideCrypt ensures that sensitive information remains invisible while maintaining the original quality of media, providing a simple yet powerful solution for secure digital communication.</p>
-        </div>
-
-        <div className={Styles.heroSecBtn}>
-
-          <div className={Styles.heroSecBtn1}>
-            <Link>Button 1</Link>
+          <div className={Styles.heroSecHP}>
+            <h1>Hide More Than Meets The Eye</h1>
+            <p>Your all-in-one steganography platform for securely hiding and extracting secret messages within images, audio, and video files. HideCrypt ensures that sensitive information remains invisible while maintaining the original quality of media, providing a simple yet powerful solution for secure digital communication.</p>
           </div>
 
-          <div className={Styles.heroSecBtn2}>
-            <Link>Button 2</Link>
+          <div className={Styles.heroSecBtn}>
+
+            <div className={Styles.heroSecBtn1}>
+              <Link>Button 1</Link>
+            </div>
+
+            <div className={Styles.heroSecBtn2}>
+              <Link>Button 2</Link>
+            </div>
+
           </div>
 
         </div>
 
-      </div>
 
 
-
-    </section>
+      </section>
 
       <section className={Styles.Features}>
-      <div className={Styles.Container}>
-        <div className={Styles.Header}>
-          <span className={Styles.Badge}>
-            ✦ Our Features
-          </span>
+        <div className={Styles.Container}>
+          <div className={Styles.Header}>
+            <span className={Styles.Badge}>
+              ✦ Our Features
+            </span>
 
-          <h2>
-            Secure Information Hiding
-            <br />
-            Using Advanced Steganography
-          </h2>
+            <h2>
+              Secure Information Hiding
+              <br />
+              Using Advanced Steganography
+            </h2>
 
-          <p>
-            Protect sensitive information through Image, Audio and Video
-            Steganography with secure encryption and extraction techniques.
-          </p>
-        </div>
+            <p>
+              Protect sensitive information through Image, Audio and Video
+              Steganography with secure encryption and extraction techniques.
+            </p>
+          </div>
 
-        <div className={Styles.Grid}>
-          {features.map((item, index) => (
-            <div className={Styles.Card} key={index}>
-              <div className={Styles.Icon}>
-                {item.icon}
+          <div className={Styles.Grid}>
+            {features.map((item, index) => (
+              <div className={Styles.Card} key={index}>
+                <div className={Styles.Icon}>
+                  {item.icon}
+                </div>
+
+                <h3>{item.title}</h3>
+
+                <p>{item.desc}</p>
               </div>
+            ))}
+          </div>
 
-              <h3>{item.title}</h3>
-
-              <p>{item.desc}</p>
-            </div>
-          ))}
+          <div className={Styles.BottomText}>
+            StegoSecure provides modern data hiding solutions for secure digital communication.
+          </div>
         </div>
+      </section>
 
-        <div className={Styles.BottomText}>
-          StegoSecure provides modern data hiding solutions for secure digital communication.
-        </div>
-      </div>
-    </section>
-
-<Services />
+      <Services />
 
 
-<Footer />
+      <Footer />
 
-</>
+    </>
   )
 }
 

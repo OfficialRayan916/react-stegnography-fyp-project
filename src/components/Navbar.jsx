@@ -15,10 +15,10 @@ function Navbar() {
             <div className={Styles.containerPageNames}>
 
                 <Link>Home</Link>
-                <Link>Dashboard</Link>
+                <Link to="Tools">Tools</Link>
                 <Link>about</Link>
                 <Link>Features</Link>
- 
+
             </div>
 
             <div className={Styles.containerLoginSignin}>
