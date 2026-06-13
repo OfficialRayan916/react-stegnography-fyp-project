@@ -1,5 +1,5 @@
 .signup {
-    background-image: url("../Assets/cover.png");
+    background-image: url("../Assets/HideCrypt.png");
     background-size: cover;
     background-position: center;
     height: 100vh;
@@ -63,7 +63,7 @@
 .userBox:focus,
 .emailBox:focus,
 .passwordBox:focus {
-    border: 2px solid #8C57FF;
+    border: 2px solid #2563EB;
     border-radius: 5px;
     outline: none;
 }
@@ -86,7 +86,7 @@
 
 .checkbox input[type="checkbox"] {
     transform: scale(1.5);
-    accent-color: #6c5ce7;
+    accent-color: #21BE5B;
 }
 
 .agree {
@@ -96,7 +96,7 @@
 
 .checkbox a {
     text-decoration: none;
-    color: #7E4EE5;
+    color: #2563EB;
 }
 
 .checkbox a:hover {
@@ -114,11 +114,11 @@
     border: 0px;
     border-radius: 6px;
     color: white;
-    background-color: #8C57FF;
+    background-color: #2563EB;
 }
 
 .loginBtn:hover {
-    background-color: #6457c4;
+    background-color: #043ebb;
     cursor: pointer;
 }
 
@@ -137,9 +137,9 @@
 .createAcc a {
     text-decoration: none;
     cursor: pointer;
-    color: #8C57FF;
+    color: #2563EB;
 }
 
 .createAcc a:hover {
-    color: #5028a8;
+    color: #043ebb;
 }

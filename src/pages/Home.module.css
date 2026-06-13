@@ -52,7 +52,7 @@ body {
 }
 
 .heroSecBtn1:hover {
-    background-color: gray;
+    background-color: #21BE5B;
 }
 
 .heroSecBtn1:hover a {
@@ -70,7 +70,7 @@ body {
 }
 
 .heroSecBtn2 {
-    background-color: #8C57FF;
+    background-color: #2563EB;
     width: 180px;
     height: 40px;
     border-radius: 20px;
@@ -84,7 +84,7 @@ body {
 }
 
 .heroSecBtn2:hover {
-    background-color: #641CFF;
+    background-color: #043ebb;
 }
 
 .heroSecBtn2:hover a {

@@ -1,7 +1,7 @@
 .navbar {
     width: 100vw;
     height: 8.5vh;
-    background-color: #8C57FF;
+    background-color: #2563EB;
 }
 
 .navbar {
@@ -63,7 +63,7 @@
 }
 
 .loginBtn a:hover {
-    color: #641CFF;
+    color: rgb(239, 239, 239);
 }
 
 .signinBtn {
@@ -81,7 +81,7 @@
 }
 
 .signinBtn:hover {
-    background-color: #641CFF;
+    background-color: #21BE5B;
 }
 
 .signinBtn:hover a {

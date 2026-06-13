@@ -77,11 +77,11 @@ function Home() {
           <div className={Styles.heroSecBtn}>
 
             <div className={Styles.heroSecBtn1}>
-              <Link>Button 1</Link>
+              <Link>Features</Link>
             </div>
 
             <div className={Styles.heroSecBtn2}>
-              <Link>Button 2</Link>
+              <Link>Try Tools</Link>
             </div>
 
           </div>
