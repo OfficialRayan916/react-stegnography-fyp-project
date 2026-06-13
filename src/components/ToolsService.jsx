@@ -43,7 +43,7 @@ const Services = () => {
                 <p className={Styles.headpara}>Explore our advanced steganography services and click **Get Started** to begin. We offer **Image**, **Audio**, and **Video Steganography**<br /> solutions that allow you to securely hide and retrieve confidential information while maintaining the quality,<br /> integrity, and security of your digital media.
                     .</p>
 
-                <div className={Styles.cards}>
+                <div id="ourServices" className={Styles.cards}>
                     {services.map((service, index) => (
                         <div className={Styles.card} key={index}>
                             <img

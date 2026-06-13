@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import Styles from './Tools.module.css';
 import Navbar from '../components/Navbar'
 import ToolsService from '../components/ToolsService'
@@ -70,8 +71,8 @@ function Tools() {
                     </p>
 
                     <div className={Styles.buttonGroup}>
-                        <button className={Styles.primaryBtn}>Get Started</button>
-                        <button className={Styles.secondaryBtn}>How It Works</button>
+                        <Link to="/Tools#ourServices" className={Styles.primaryBtn}>Get Started</Link>
+                        <Link to="/Tools#Guides" className={Styles.secondaryBtn}>How It Works</Link>
                     </div>
 
                     <div className={Styles.iconRow}>
@@ -84,7 +85,7 @@ function Tools() {
             </section>
 
             <section className={Styles.section}>
-                <div className={Styles.container}>
+                <div id='Guides' className={Styles.container}>
                     <h2 className={Styles.heading}>How It Works</h2>
 
                     <p className={Styles.subHeading}>

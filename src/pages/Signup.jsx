@@ -1,4 +1,4 @@
-import react from "react";
+
 import { Link } from "react-router-dom";
 import styles from './Signup.module.css';
 
@@ -23,7 +23,7 @@ function Signup() {
 
                 <div className={styles.checkbox}>
                     <input type="checkbox" name={styles.remember} id="" />
-                    <a href=""><span className={styles.agree}>I agree to</span> privacy policy & terms</a>
+                    <Link><span className={styles.agree}>I agree to</span> privacy policy & terms</Link>
                 </div>
 
                 <div className={styles.loginBtnDiv}>
@@ -32,7 +32,7 @@ function Signup() {
 
                 <div className={styles.createAcc}>
                     <p>Already have an account?</p>
-                    <Link to="/">Sign in instead</Link>
+                    <Link to="/login">Sign in instead</Link>
                 </div>
 
             </div>

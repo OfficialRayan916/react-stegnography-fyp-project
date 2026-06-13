@@ -2,6 +2,7 @@ import React from 'react'
 import Navbar from '../components/Navbar'
 import Footer from "../components/Footer";
 import Services from '../components/Services';
+import Tools from './Tools';
 import Styles from './Home.module.css'
 import { Link } from 'react-router-dom'
 
@@ -77,11 +78,11 @@ function Home() {
           <div className={Styles.heroSecBtn}>
 
             <div className={Styles.heroSecBtn1}>
-              <Link>Features</Link>
+              <Link to="/#Features">Features</Link>
             </div>
 
             <div className={Styles.heroSecBtn2}>
-              <Link>Try Tools</Link>
+              <Link to="./Tools">Try Tools</Link>
             </div>
 
           </div>
@@ -94,7 +95,7 @@ function Home() {
 
       <section className={Styles.Features}>
         <div className={Styles.Container}>
-          <div className={Styles.Header}>
+          <div id='Features' className={Styles.Header}>
             <span className={Styles.Badge}>
               ✦ Our Features
             </span>

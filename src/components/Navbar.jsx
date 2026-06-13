@@ -14,21 +14,21 @@ function Navbar() {
 
             <div className={Styles.containerPageNames}>
 
-                <Link>Home</Link>
-                <Link to="Tools">Tools</Link>
-                <Link>Guide</Link>
-                <Link>Features</Link>
+                <Link to="/">Home</Link>
+                <Link to="/Tools">Tools</Link>
+                <Link to="/Tools#Guides">Guide</Link>
+                <Link to="/#Features">Features</Link>
 
             </div>
 
             <div className={Styles.containerLoginSignin}>
 
                 <div className={Styles.loginBtn}>
-                    <Link>Login</Link>
+                    <Link to="/Login">Login</Link>
                 </div>
 
                 <div className={Styles.signinBtn}>
-                    <Link>Sign In</Link>
+                    <Link to="/SignUp">Sign In</Link>
                 </div>
 
             </div>

@@ -12,6 +12,7 @@ function VideoStego() {
 
     const [mode, setMode] = useState("encode");
     const [selectedVideo, setSelectedVideo] = useState(null);
+    // eslint-disable-next-line no-unused-vars
     const [encodedVideo, setEncodedVideo] = useState(null);
 
     const fileInputRef = useRef(null);
@@ -24,6 +25,10 @@ function VideoStego() {
             fileInputRef.current.value = "";
         }
     }, [mode]);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     const handleVideoChange = (e) => {
         const file = e.target.files[0];

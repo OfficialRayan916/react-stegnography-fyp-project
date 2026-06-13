@@ -110,10 +110,18 @@
 .loginBtn {
     width: 64vh;
     height: 7vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     border: 0px;
     border-radius: 6px;
+
     color: white;
     background-color: #2563EB;
+
+    text-decoration: none; /* 🔥 removes underline */
 }
 
 .loginBtn:hover {

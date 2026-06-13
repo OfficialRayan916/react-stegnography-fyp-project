@@ -13,21 +13,21 @@ const Services = () => {
             title: "Image Steganography",
             description:
                 "Securely hide confidential messages inside images while preserving their original appearance and quality.",
-            path: "/image-steganography",
+            path: "/imageStego",
         },
         {
             image: AudioSteg,
             title: "Audio Steganography",
             description:
                 "Embed secret information within audio files without noticeable changes to the sound output.",
-            path: "/audio-steganography",
+            path: "/audioStego",
         },
         {
             image: VideoSteg,
             title: "Video Steganography",
             description:
                 "Protect sensitive data by concealing it inside video files using advanced steganographic techniques.",
-            path: "/video-steganography",
+            path: "/videoStego",
         },
     ];
 

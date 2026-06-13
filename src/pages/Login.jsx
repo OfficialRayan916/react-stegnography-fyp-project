@@ -1,4 +1,4 @@
-import react from "react";
+
 import { Link } from "react-router-dom";
 import styles from './Login.module.css';
 
@@ -26,11 +26,11 @@ function Login() {
                         <input type="checkbox" name={styles.remember} id="" />
                         <label htmlFor="remember">Remember me</label>
                     </div>
-                    <a href="">forgot password?</a>
+                    <Link >forgot password?</Link>
                 </div>
 
                 <div className={styles.loginBtnDiv}>
-                    <button className={styles.loginBtn}>Log In</button>
+                    <Link to="/" className={styles.loginBtn}>Log In</Link>
                 </div>
 
                 <div className={styles.createAcc}>

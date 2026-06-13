@@ -25,6 +25,10 @@ function ImageStego() {
         }
     }, [mode]);
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     const handleImageChange = (e) => {
         const file = e.target.files[0];
 

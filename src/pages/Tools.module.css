@@ -49,8 +49,15 @@
   border: none;
   padding: 10px 20px;
   border-radius: 25px;
-  cursor: pointer;
+
+  display: inline-flex;     /* important for Link */
+  align-items: center;
+  justify-content: center;
+
+  text-decoration: none;    /* removes underline */
   font-weight: 600;
+  cursor: pointer;
+
   transition: 0.3s;
 }
 
@@ -63,10 +70,18 @@
   background: #FFFFFF;
   border: 2px solid #2563EB;
   color: #2563EB;
+
   padding: 10px 20px;
   border-radius: 25px;
-  cursor: pointer;
+
+  display: inline-flex;      /* important for Link */
+  align-items: center;
+  justify-content: center;
+
+  text-decoration: none;     /* removes underline */
   font-weight: 600;
+
+  cursor: pointer;
   transition: 0.3s;
 }
 

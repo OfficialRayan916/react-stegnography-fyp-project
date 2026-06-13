@@ -25,6 +25,10 @@ function AudioStego() {
         }
     }, [mode]);
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     const handleAudioChange = (e) => {
         const file = e.target.files[0];
 
