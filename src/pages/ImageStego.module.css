@@ -231,7 +231,7 @@
 .button {
     background: #2563EB;
     color: white;
-width: 40%;
+    width: 40%;
     padding: 12px;
 
     border: none;
@@ -254,10 +254,12 @@ width: 40%;
 }
 
 .downloadButton {
-    background: #10B981; /* green */
+    background: #10B981;
+    /* green */
     color: white;
 
-    width: 45%; /* adjust as you like */
+    width: 45%;
+    /* adjust as you like */
     padding: 12px;
 
     border: none;

@@ -121,7 +121,8 @@
     color: white;
     background-color: #2563EB;
 
-    text-decoration: none; /* 🔥 removes underline */
+    text-decoration: none;
+    /* 🔥 removes underline */
 }
 
 .loginBtn:hover {

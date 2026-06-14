@@ -50,11 +50,13 @@
   padding: 10px 20px;
   border-radius: 25px;
 
-  display: inline-flex;     /* important for Link */
+  display: inline-flex;
+  /* important for Link */
   align-items: center;
   justify-content: center;
 
-  text-decoration: none;    /* removes underline */
+  text-decoration: none;
+  /* removes underline */
   font-weight: 600;
   cursor: pointer;
 
@@ -74,11 +76,13 @@
   padding: 10px 20px;
   border-radius: 25px;
 
-  display: inline-flex;      /* important for Link */
+  display: inline-flex;
+  /* important for Link */
   align-items: center;
   justify-content: center;
 
-  text-decoration: none;     /* removes underline */
+  text-decoration: none;
+  /* removes underline */
   font-weight: 600;
 
   cursor: pointer;
@@ -177,7 +181,7 @@
 .right {
   left: 50%;
   padding-left: 80px;
-  text-align: left;  
+  text-align: left;
 }
 
 .content {

@@ -10,7 +10,7 @@ function Navbar() {
 
             <div className={Styles.navHead}>
                 <Link to="/">
-                <h3>Hide <span className={Styles.navHeadCrypt}>Crypt</span></h3>
+                    <h3>Hide <span className={Styles.navHeadCrypt}>Crypt</span></h3>
                 </Link>
             </div>
 
