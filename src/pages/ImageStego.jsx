@@ -12,7 +12,7 @@ function ImageStego() {
 
     const [mode, setMode] = useState("encode");
     const [selectedImage, setSelectedImage] = useState(null);
-    const [encodedImage, setEncodedImage] = useState(null);
+    const [encodedImage] = useState(null);
 
     const fileInputRef = useRef(null);
 

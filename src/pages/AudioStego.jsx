@@ -12,7 +12,7 @@ function AudioStego() {
 
     const [mode, setMode] = useState("encode");
     const [selectedAudio, setSelectedAudio] = useState(null);
-    const [encodedAudio, setEncodedAudio] = useState(null);
+    const [encodedAudio] = useState(null);
 
     const fileInputRef = useRef(null);
 

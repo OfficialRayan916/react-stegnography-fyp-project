@@ -1,6 +1,5 @@
 import React from 'react'
 import Styles from './Footer.module.css'
-import { Link, Links } from 'react-router-dom'
 
 import {
     FaInstagram,
@@ -18,38 +17,38 @@ function footer() {
             <div className={Styles.footerContent}>
                 <div className={Styles.column}>
                     <h4>Features</h4>
-                    <a href="#">Image Steganography</a>
-                    <a href="#">Audio Steganography</a>
-                    <a href="#">Video Steganography</a>
-                    <a href="#">Data Encryption</a>
-                    <a href="#">Secure Extraction</a>
+                    <a href="https://github.com/OfficialRayan916">Image Steganography</a>
+                    <a href="https://github.com/OfficialRayan916">Audio Steganography</a>
+                    <a href="https://github.com/OfficialRayan916">Video Steganography</a>
+                    <a href="https://github.com/OfficialRayan916">Data Encryption</a>
+                    <a href="https://github.com/OfficialRayan916">Secure Extraction</a>
                 </div>
 
                 <div className={Styles.column}>
                     <h4>Media Types</h4>
-                    <a href="#">PNG Images</a>
-                    <a href="#">JPEG Images</a>
-                    <a href="#">WAV Audio</a>
-                    <a href="#">MP4 Videos</a>
-                    <a href="#">Multi-Layer Security</a>
+                    <a href="https://github.com/OfficialRayan916">PNG Images</a>
+                    <a href="https://github.com/OfficialRayan916">JPEG Images</a>
+                    <a href="https://github.com/OfficialRayan916">WAV Audio</a>
+                    <a href="https://github.com/OfficialRayan916">MP4 Videos</a>
+                    <a href="https://github.com/OfficialRayan916">Multi-Layer Security</a>
                 </div>
 
                 <div className={Styles.column}>
                     <h4>Resources</h4>
-                    <a href="#">Documentation</a>
-                    <a href="#">Research Papers</a>
-                    <a href="#">Project Guide</a>
-                    <a href="#">FAQs</a>
-                    <a href="#">Support Center</a>
+                    <a href="https://github.com/OfficialRayan916">Documentation</a>
+                    <a href="https://github.com/OfficialRayan916">Research Papers</a>
+                    <a href="https://github.com/OfficialRayan916">Project Guide</a>
+                    <a href="https://github.com/OfficialRayan916">FAQs</a>
+                    <a href="https://github.com/OfficialRayan916">Support Center</a>
                 </div>
 
                 <div className={Styles.column}>
                     <h4>Security</h4>
-                    <a href="#">AES Encryption</a>
-                    <a href="#">Password Protection</a>
-                    <a href="#">Data Integrity</a>
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
+                    <a href="https://github.com/OfficialRayan916">AES Encryption</a>
+                    <a href="https://github.com/OfficialRayan916">Password Protection</a>
+                    <a href="https://github.com/OfficialRayan916">Data Integrity</a>
+                    <a href="https://github.com/OfficialRayan916">Privacy Policy</a>
+                    <a href="https://github.com/OfficialRayan916">Terms of Service</a>
                 </div>
 
                 <div className={Styles.newsletter}>
