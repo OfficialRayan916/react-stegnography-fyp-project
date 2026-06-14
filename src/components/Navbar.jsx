@@ -9,7 +9,9 @@ function Navbar() {
         <section className={Styles.navbar}>
 
             <div className={Styles.navHead}>
+                <Link to="/">
                 <h3>Hide <span className={Styles.navHeadCrypt}>Crypt</span></h3>
+                </Link>
             </div>
 
             <div className={Styles.containerPageNames}>

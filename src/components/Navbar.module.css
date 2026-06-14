@@ -9,6 +9,15 @@
     align-items: center;
 }
 
+.navHead a,
+.navHead a:visited,
+.navHead a:hover,
+.navHead a:active,
+.navHead a:focus {
+    color: inherit;
+    text-decoration: none;
+}
+
 .navHead h3 {
     display: flex;
     flex-direction: row;
