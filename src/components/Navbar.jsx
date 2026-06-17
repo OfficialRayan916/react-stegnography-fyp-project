@@ -19,7 +19,8 @@ function Navbar() {
                 <Link to="/">Home</Link>
                 <Link to="/Tools">Tools</Link>
                 <Link to="/Tools#Guides">Guide</Link>
-                <Link to="/#Features">Features</Link>
+                {/* <Link to="/#Features">Features</Link> */}
+                <Link to="/dashboard">Features</Link>
 
             </div>
 

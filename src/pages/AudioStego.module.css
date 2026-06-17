@@ -220,6 +220,28 @@ audio.previewMedia {
 
     resize: none;
 }
+.decodedTextarea {
+    width: 100%;
+    height: 220px;
+
+    padding: 12px;
+
+    border: 1px solid #000000;
+    border-radius: 10px;
+
+    resize: none;
+
+    background: #F8FAFC;
+    color: #111827;
+
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.decodedTextarea:focus {
+    outline: none;
+    border-color: #2563EB;
+}
 
 .input {
     width: 100%;

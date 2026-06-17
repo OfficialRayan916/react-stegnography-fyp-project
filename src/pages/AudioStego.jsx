@@ -12,7 +12,17 @@ function AudioStego() {
 
     const [mode, setMode] = useState("encode");
     const [selectedAudio, setSelectedAudio] = useState(null);
-    const [encodedAudio] = useState(null);
+    const [selectedFile, setSelectedFile] = useState(null);
+
+    const [secretMessage, setSecretMessage] = useState("");
+    const [decodedMessage, setDecodedMessage] = useState("");
+
+    const [password, setPassword] = useState("");
+    const [decodePassword, setDecodePassword] = useState("");
+
+    const [loading, setLoading] = useState(false);
+
+    const [encodedAudio, setEncodedAudio] = useState(null);
 
     const fileInputRef = useRef(null);
 
@@ -30,10 +40,18 @@ function AudioStego() {
     }, []);
 
     const handleAudioChange = (e) => {
+
         const file = e.target.files[0];
 
         if (file) {
-            setSelectedAudio(URL.createObjectURL(file));
+
+            setEncodedAudio(null);
+            setDecodedMessage("");
+
+            setSelectedFile(file);
+            setSelectedAudio(
+                URL.createObjectURL(file)
+            );
         }
     };
 
@@ -44,6 +62,132 @@ function AudioStego() {
             fileInputRef.current.value = "";
         }
     };
+
+    const handleEncode = async () => {
+
+        if (!selectedFile) {
+            alert("Please select an audio file");
+            return;
+        }
+
+        if (!secretMessage) {
+            alert("Please enter a secret message");
+            return;
+        }
+
+        try {
+
+            setLoading(true);
+
+            const formData = new FormData();
+
+            const user = {
+                user_id: localStorage.getItem("user_id"),
+                username: localStorage.getItem("username")
+            };
+
+            formData.append("audio", selectedFile);
+            formData.append("message", secretMessage);
+            formData.append("password", password);
+
+            formData.append("user_id", user.user_id);
+            formData.append("username", user.username);
+
+            const response = await fetch(
+                "http://127.0.0.1:5000/audio/encode",
+                {
+                    method: "POST",
+                    body: formData
+                }
+            );
+
+            const blob = await response.blob();
+
+            const url = window.URL.createObjectURL(blob);
+
+            setEncodedAudio(url);
+
+        } catch (error) {
+
+            console.error(error);
+            alert("Encoding failed");
+
+        } finally {
+
+            setLoading(false);
+
+        }
+    };
+
+    const handleDownload = () => {
+
+        if (!encodedAudio) return;
+
+        const link = document.createElement("a");
+
+        link.href = encodedAudio;
+        link.download = "encoded_audio.wav";
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        link.remove();
+    };
+
+    const handleDecode = async () => {
+
+        if (!selectedFile) {
+            alert("Please select an audio file");
+            return;
+        }
+
+        try {
+
+            setLoading(true);
+
+            const formData = new FormData();
+
+            const user = {
+                user_id: localStorage.getItem("user_id"),
+                username: localStorage.getItem("username")
+            };
+
+            formData.append("audio", selectedFile);
+            formData.append("password", decodePassword);
+
+            formData.append("user_id", user.user_id);
+            formData.append("username", user.username);
+
+            const response = await fetch(
+                "http://127.0.0.1:5000/audio/decode",
+                {
+                    method: "POST",
+                    body: formData
+                }
+            );
+
+            const data = await response.json();
+
+            if (data.success) {
+                setDecodedMessage(data.message);
+            }
+            else {
+                alert(data.message);
+            }
+
+        } catch (error) {
+
+            console.error(error);
+            alert("Decode failed");
+
+        } finally {
+
+            setLoading(false);
+
+        }
+    };
+
 
     return (
         <>
@@ -116,7 +260,7 @@ function AudioStego() {
                             <input
                                 ref={fileInputRef}
                                 type="file"
-                                accept="audio/*"
+                                accept=".wav,.mp3,.m4a"
                                 className={Styles.fileInput}
                                 onChange={handleAudioChange}
                             />
@@ -131,22 +275,37 @@ function AudioStego() {
                             <textarea
                                 className={Styles.textarea}
                                 placeholder="Enter secret message..."
+                                value={secretMessage}
+                                onChange={(e) =>
+                                    setSecretMessage(e.target.value)
+                                }
                             />
 
                             <input
                                 type="password"
                                 className={Styles.input}
                                 placeholder="Password (optional)"
+                                value={password}
+                                onChange={(e) =>
+                                    setPassword(e.target.value)
+                                }
                             />
 
                             <div className={Styles.buttonRow}>
-                                <button className={Styles.button}>
-                                    Encode Audio
+                                <button
+                                    className={Styles.button}
+                                    onClick={handleEncode}
+                                    disabled={loading}
+                                >
+                                    {loading
+                                        ? "Encoding..."
+                                        : "Encode Audio"}
                                 </button>
 
                                 <button
                                     className={Styles.downloadButton}
                                     disabled={!encodedAudio}
+                                    onClick={handleDownload}
                                 >
                                     Download Encrypted Audio
                                 </button>
@@ -160,11 +319,28 @@ function AudioStego() {
                                 type="password"
                                 className={Styles.input}
                                 placeholder="Enter password"
+                                value={decodePassword}
+                                onChange={(e) =>
+                                    setDecodePassword(e.target.value)
+                                }
                             />
 
-                            <button className={Styles.button}>
-                                Decode Audio
+                            <button
+                                className={Styles.button}
+                                onClick={handleDecode}
+                                disabled={loading}
+                            >
+                                {loading
+                                    ? "Decoding..."
+                                    : "Decode Audio"}
                             </button>
+
+                            <textarea
+                                className={Styles.decodedTextarea}
+                                placeholder="Decoded message will appear here..."
+                                value={decodedMessage}
+                                readOnly
+                            />
 
                         </div>
                     )}

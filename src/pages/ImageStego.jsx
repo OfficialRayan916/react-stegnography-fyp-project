@@ -12,7 +12,15 @@ function ImageStego() {
 
     const [mode, setMode] = useState("encode");
     const [selectedImage, setSelectedImage] = useState(null);
-    const [encodedImage] = useState(null);
+    const [selectedFile, setSelectedFile] = useState(null);
+
+    const [secretMessage, setSecretMessage] = useState("");
+    const [decodedMessage, setDecodedMessage] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [encodedImage, setEncodedImage] = useState(null);
+
+    const [password, setPassword] = useState("");
+    const [decodePassword, setDecodePassword] = useState("");
 
     const fileInputRef = useRef(null);
 
@@ -33,6 +41,10 @@ function ImageStego() {
         const file = e.target.files[0];
 
         if (file) {
+            setEncodedImage(null);
+            setDecodedMessage("");
+
+            setSelectedFile(file);
             setSelectedImage(URL.createObjectURL(file));
         }
     };
@@ -44,6 +56,134 @@ function ImageStego() {
             fileInputRef.current.value = "";
         }
     };
+
+    const handleEncode = async () => {
+
+        if (!selectedFile) {
+            alert("Please select an image");
+            return;
+        }
+
+        if (!secretMessage) {
+            alert("Please enter a secret message");
+            return;
+        }
+
+        try {
+
+            setLoading(true);
+
+            const formData = new FormData();
+
+            const user = {
+                user_id: localStorage.getItem("user_id"),
+                username: localStorage.getItem("username")
+            };
+
+            console.log("USER:", user);
+
+            formData.append("image", selectedFile);
+            formData.append("message", secretMessage);
+            formData.append("password", password);
+
+            formData.append("user_id", user.user_id);
+            formData.append("username", user.username);
+
+            const response = await fetch(
+                "http://127.0.0.1:5000/image/encode",
+                {
+                    method: "POST",
+                    body: formData
+                }
+            );
+
+            const blob = await response.blob();
+
+            const url = window.URL.createObjectURL(blob);
+
+            setEncodedImage(url);
+
+
+        } catch (error) {
+
+            console.error(error);
+            alert("Encoding failed");
+
+        } finally {
+
+            setLoading(false);
+
+        }
+    };
+
+    const handleDownload = () => {
+
+        if (!encodedImage) return;
+
+        const link = document.createElement("a");
+
+        link.href = encodedImage;
+        link.download = "encoded_image.png";
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        link.remove();
+    };
+
+    const handleDecode = async () => {
+
+        if (!selectedFile) {
+            alert("Please select an image");
+            return;
+        }
+
+        try {
+
+            setLoading(true);
+
+            const formData = new FormData();
+
+            const user = {
+                user_id: localStorage.getItem("user_id"),
+                username: localStorage.getItem("username")
+            };
+
+            formData.append("image", selectedFile);
+            formData.append("password", decodePassword);
+
+            formData.append("user_id", user.user_id);
+            formData.append("username", user.username);
+
+            const response = await fetch(
+                "http://127.0.0.1:5000/image/decode",
+                {
+                    method: "POST",
+                    body: formData
+                }
+            );
+
+            const data = await response.json();
+
+            if (data.success) {
+                setDecodedMessage(data.message);
+            } else {
+                alert(data.message);
+            }
+
+        } catch (error) {
+
+            console.error(error);
+            alert("Decode failed");
+
+        } finally {
+
+            setLoading(false);
+
+        }
+    };
+
 
     return (
         <>
@@ -115,7 +255,7 @@ function ImageStego() {
                         <input
                             ref={fileInputRef}
                             type="file"
-                            accept="image/*"
+                            accept=".png,.jpg,.jpeg"
                             className={Styles.fileInput}
                             onChange={handleImageChange}
                         />
@@ -129,22 +269,32 @@ function ImageStego() {
                             <textarea
                                 className={Styles.textarea}
                                 placeholder="Enter secret message..."
+                                value={secretMessage}
+                                onChange={(e) => setSecretMessage(e.target.value)}
                             />
 
                             <input
                                 type="password"
                                 className={Styles.input}
                                 placeholder="Password (optional)"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                             />
 
+
                             <div className={Styles.buttonRow}>
-                                <button className={Styles.button}>
-                                    Encode Image
+                                <button
+                                    className={Styles.button}
+                                    onClick={handleEncode}
+                                    disabled={loading}
+                                >
+                                    {loading ? "Encoding..." : "Encode Image"}
                                 </button>
 
                                 <button
                                     className={Styles.downloadButton}
                                     disabled={!encodedImage}
+                                    onClick={handleDownload}
                                 >
                                     Download Encrypted Image
                                 </button>
@@ -159,11 +309,24 @@ function ImageStego() {
                                 type="password"
                                 className={Styles.input}
                                 placeholder="Enter password"
+                                value={decodePassword}
+                                onChange={(e) => setDecodePassword(e.target.value)}
                             />
 
-                            <button className={Styles.button}>
-                                Decode Image
+                            <button
+                                className={Styles.button}
+                                onClick={handleDecode}
+                                disabled={loading}
+                            >
+                                {loading ? "Decoding..." : "Decode Image"}
                             </button>
+
+                            <textarea
+                                className={Styles.decodedTextarea}
+                                placeholder="Decoded message will appear here..."
+                                value={decodedMessage}
+                                readOnly
+                            />
 
                         </div>
                     )}
