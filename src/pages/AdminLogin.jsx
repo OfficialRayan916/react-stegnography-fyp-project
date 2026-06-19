@@ -36,7 +36,7 @@ function Login() {
 
         try {
             console.log("Sending login request:", formData);
-            const response = await fetch("http://127.0.0.1:5000/auth/login", {
+            const response = await fetch("http://127.0.0.1:5000/auth/admin-login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -99,8 +99,8 @@ function Login() {
             <div className={styles.section}>
 
                 <div className={styles.head}>
-                    <h2>Welcome to HideCrypt!</h2>
-                    <p>Please sign-in to your account and start the<br /> adventure</p>
+                    <h2>Welcome Back, Admin!</h2>
+                    <p>Sign in to access the HideCrypt administration <br /> dashboard and manage system activities.</p>
                 </div>
 
                 {error && (
@@ -175,13 +175,8 @@ function Login() {
                 </form>
 
                 <div className={styles.createAcc}>
-                    <p>New on our platform?</p>
-                    <Link to="/signup">Sign Up</Link>
-                </div>
-
-                <div className={styles.createAcc}>
-                    
-                    <Link to="/adminlogin">Signin as Admin.</Link>
+                    <p>Not an administrator?</p>
+                    <Link to="/login">Sign in as a user</Link>
                 </div>
 
             </div>

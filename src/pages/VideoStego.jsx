@@ -12,8 +12,16 @@ function VideoStego() {
 
     const [mode, setMode] = useState("encode");
     const [selectedVideo, setSelectedVideo] = useState(null);
-    // eslint-disable-next-line no-unused-vars
+    const [videoFile, setVideoFile] = useState(null);
+
+    const [message, setMessage] = useState("");
+    const [password, setPassword] = useState("");
+
     const [encodedVideo, setEncodedVideo] = useState(null);
+    const [decodedMessage, setDecodedMessage] = useState("");
+
+    const [loading, setLoading] = useState(false);
+
 
     const fileInputRef = useRef(null);
 
@@ -34,6 +42,7 @@ function VideoStego() {
         const file = e.target.files[0];
 
         if (file) {
+            setVideoFile(file);
             setSelectedVideo(URL.createObjectURL(file));
         }
     };
@@ -46,9 +55,121 @@ function VideoStego() {
         }
     };
 
+    const handleEncode = async () => {
+
+        if (!videoFile) {
+            alert("Please select a video");
+            return;
+        }
+
+        setLoading(true);
+
+        const formData = new FormData();
+
+        const user_id = localStorage.getItem("user_id");
+        const username = localStorage.getItem("username");
+
+        formData.append("user_id", user_id);
+        formData.append("username", username);
+
+        formData.append("video", videoFile);
+        formData.append("message", message);
+        formData.append("password", password);
+
+        try {
+
+            const response = await fetch(
+                "http://127.0.0.1:5000/video/encode",
+                {
+                    method: "POST",
+                    body: formData
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error("Encoding failed");
+            }
+
+            const blob = await response.blob();
+
+            const url = window.URL.createObjectURL(blob);
+
+            setEncodedVideo(url);
+
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert("Encoding failed");
+        } finally {
+
+            setLoading(false);
+        }
+    };
+
+
+    const handleDecode = async () => {
+
+        if (!videoFile) {
+            alert("Please select a video");
+            return;
+        }
+
+        const formData = new FormData();
+
+        const user_id = localStorage.getItem("user_id");
+        const username = localStorage.getItem("username");
+
+        formData.append("user_id", user_id);
+        formData.append("username", username);
+
+        formData.append("video", videoFile);
+        formData.append("password", password);
+
+        try {
+
+            const response = await fetch(
+                "http://127.0.0.1:5000/video/decode",
+                {
+                    method: "POST",
+                    body: formData
+                }
+            );
+
+            const data = await response.json();
+
+            if (data.success) {
+                setDecodedMessage(data.message);
+            }
+            else {
+                alert(data.message);
+            }
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert("Decode failed");
+        }
+    };
+
+
     return (
         <>
             <Navbar />
+
+            {loading && (
+                <div className={Styles.loaderOverlay}>
+                    <div className={Styles.loaderBox}>
+                        <div className={Styles.spinner}></div>
+                        <h3 className={Styles.spinnerHead}>Encoding Video...</h3>
+                        <p className={Styles.spinnerPara}>Please wait while HideCrypt secures your data.</p>
+                    </div>
+                </div>
+            )}
+
 
             {/* HEADER */}
             <section className={Styles.headerSection}>
@@ -132,22 +253,40 @@ function VideoStego() {
                             <textarea
                                 className={Styles.textarea}
                                 placeholder="Enter secret message..."
+                                value={message}
+                                onChange={(e) => setMessage(e.target.value)}
                             />
 
                             <input
                                 type="password"
                                 className={Styles.input}
                                 placeholder="Password (optional)"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                             />
 
                             <div className={Styles.buttonRow}>
-                                <button className={Styles.button}>
-                                    Encode Video
+                                <button
+                                    className={Styles.button}
+                                    onClick={handleEncode}
+                                    disabled={loading}
+                                >
+                                    {loading ? "Encoding..." : "Encode Video"}
                                 </button>
 
                                 <button
                                     className={Styles.downloadButton}
                                     disabled={!encodedVideo}
+                                    onClick={() => {
+
+                                        const link = document.createElement("a");
+
+                                        link.href = encodedVideo;
+
+                                        link.download = "encoded_video.mp4";
+
+                                        link.click();
+                                    }}
                                 >
                                     Download Encrypted Video
                                 </button>
@@ -163,9 +302,19 @@ function VideoStego() {
                                 placeholder="Enter password"
                             />
 
-                            <button className={Styles.button}>
+                            <button
+                                className={Styles.button}
+                                onClick={handleDecode}
+                            >
                                 Decode Video
                             </button>
+
+                            <textarea
+                                className={Styles.outputBox}
+                                value={decodedMessage}
+                                placeholder="Decoded secret message will appear here..."
+                                readOnly
+                            />
 
                         </div>
                     )}

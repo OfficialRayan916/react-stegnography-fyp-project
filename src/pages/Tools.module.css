@@ -14,7 +14,7 @@
 .heroIcon {
   font-size: 60px !important;
   color: #2563EB;
-  margin-top: 1px;
+  margin-top: 95px;
   margin-bottom: 10px;
 }
 
@@ -39,8 +39,8 @@
 .buttonGroup {
   display: flex;
   gap: 15px;
-  margin-top: 20px;
-  margin-bottom: 25px;
+  margin-top: 1px;
+  margin-bottom: 45px;
 }
 
 .primaryBtn {
@@ -124,7 +124,7 @@
 
 .section {
   background: #f3f5fa;
-  padding: 100px 20px;
+  padding: 150px 20px;
 }
 
 .container {

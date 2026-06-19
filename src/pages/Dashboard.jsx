@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Dashboard.module.css";
 
@@ -21,29 +21,35 @@ const Icon = ({ d, size = 20, color = "currentColor" }) => (
 // ── Icon path constants ───────────────────────────────────────────────────────
 const ICONS = {
   dashboard: "M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z M9 22V12h6v10",
-  encode:    "M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5",
-  decode:    "M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3",
-  history:   "M12 8v4l3 3M3.05 11a9 9 0 1017.9 0",
-  profile:   "M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z",
-  logout:    "M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9",
-  image:     "M21 19a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h4l2 3h8a2 2 0 012 2z",
-  audio:     "M9 18V5l12-2v13M6 21a3 3 0 100-6 3 3 0 000 6zM18 19a3 3 0 100-6 3 3 0 000 6z",
-  video:     "M15 10l4.553-2.07A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.94L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z",
-  activity:  "M22 12h-4l-3 9L9 3l-3 9H2",
-  bell:      "M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0",
-  shield:    "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z",
-  lock:      "M19 11H5a2 2 0 00-2 2v7a2 2 0 002 2h14a2 2 0 002-2v-7a2 2 0 00-2-2zM7 11V7a5 5 0 0110 0v4",
-  check:     "M20 6L9 17l-5-5",
+  home: "m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25",
+  imagestego: "m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z",
+  audiostego: "m9 9 10.5-3m0 6.553v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 1 1-.99-3.467l2.31-.66a2.25 2.25 0 0 0 1.632-2.163Zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 0 1-.99-3.467l2.31-.66A2.25 2.25 0 0 0 9 15.553Z",
+  videostego: "m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z",
+  history: "M12 8v4l3 3M3.05 11a9 9 0 1017.9 0",
+  profile: "M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z",
+  logout: "M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9",
+  image: "M21 19a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h4l2 3h8a2 2 0 012 2z",
+  audio: "M9 18V5l12-2v13M6 21a3 3 0 100-6 3 3 0 000 6zM18 19a3 3 0 100-6 3 3 0 000 6z",
+  video: "M15 10l4.553-2.07A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.94L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z",
+  activity: "M22 12h-4l-3 9L9 3l-3 9H2",
+  bell: "M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0",
+  shield: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z",
+  lock: "M19 11H5a2 2 0 00-2 2v7a2 2 0 002 2h14a2 2 0 002-2v-7a2 2 0 00-2-2zM7 11V7a5 5 0 0110 0v4",
+  check: "M20 6L9 17l-5-5",
 };
 
 // ── Static data ───────────────────────────────────────────────────────────────
 const NAV_ITEMS = [
   { key: "dashboard", label: "Dashboard", icon: ICONS.dashboard, to: "/dashboard" },
-  { key: "encode",    label: "Encode",    icon: ICONS.encode,    to: "/tools/image" },
-  { key: "decode",    label: "Decode",    icon: ICONS.decode,    to: "/tools/image" },
-  { key: "history",   label: "History",   icon: ICONS.history,   to: "/history" },
-  { key: "profile",   label: "Profile",   icon: ICONS.profile,   to: "/profile" },
+  { key: "home", label: "Home page", icon: ICONS.home, to: "/" },
+  { key: "imagestego", label: "Image Stegnography", icon: ICONS.imagestego, to: "/imageStego" },
+  { key: "audiostego", label: "Audio Stegnography", icon: ICONS.audiostego, to: "/audioStego" },
+  { key: "videostego", label: "Video Stegnography", icon: ICONS.videostego, to: "/videoStego" },
+  { key: "history", label: "History", icon: ICONS.history, to: "/history" },
+  { key: "profile", label: "Profile", icon: ICONS.profile, to: "/profile" },
 ];
+
+
 
 const TOOL_CARDS = [
   {
@@ -55,7 +61,7 @@ const TOOL_CARDS = [
     color: "#1106e1",
     bg: "rgba(72, 8, 234, 0.15)",
     border: "rgba(0, 255, 166, 0.25)",
-    to: "/tools/image",
+    to: "/imageStego",
   },
   {
     key: "audio",
@@ -66,7 +72,7 @@ const TOOL_CARDS = [
     color: "#3f09e2",
     bg: "rgba(62, 0, 247, 0.15)",
     border: "rgba(255, 255, 255, 0.25)",
-    to: "/tools/audio",
+    to: "/audioStego",
   },
   {
     key: "video",
@@ -77,7 +83,7 @@ const TOOL_CARDS = [
     color: "#077a8e",
     bg: "rgba(1, 104, 122, 0.15)",
     border: "rgba(6,182,212,0.25)",
-    to: "/tools/video",
+    to: "/videoStego",
   },
   {
     key: "recent",
@@ -92,39 +98,47 @@ const TOOL_CARDS = [
   },
 ];
 
-const STATS = [
-  { label: "Total Encoded Files", value: "128",     delta: "+12% from last month", color: "#6C63FF" },
-  { label: "Total Decoded Files", value: "96",      delta: "+8% from last month",  color: "#A78BFA" },
-  { label: "Storage Used",        value: "2.45 GB", delta: "+3% from last month",  color: "#06B6D4" },
-];
-
-const RECENT_ACTIVITIES = [
-  { file: "secret_image.png",  type: "Image Encode", time: "2 min ago",  status: "Success", icon: ICONS.image  },
-  { file: "audio_secret.mp3",  type: "Audio Encode", time: "15 min ago", status: "Success", icon: ICONS.audio  },
-  { file: "video_secret.mp4",  type: "Video Encode", time: "1 hour ago", status: "Success", icon: ICONS.video  },
-];
-
 const SECURITY_ITEMS = [
-  { label: "Encryption",          value: "AES-256",   icon: ICONS.shield  },
-  { label: "Password Protection", value: "Enabled",   icon: ICONS.lock    },
-  { label: "Last Login",          value: "2 min ago", icon: ICONS.check   },
-  { label: "Active Sessions",     value: "1 Session", icon: ICONS.profile },
+  { label: "Encryption", value: "AES-256", icon: ICONS.shield },
+  { label: "Password Protection", value: "Enabled", icon: ICONS.lock },
+  { label: "Last Login", value: "2 min ago", icon: ICONS.check },
+  { label: "Active Sessions", value: "1 Session", icon: ICONS.profile },
 ];
 
 // ── Donut Chart (pure SVG) ────────────────────────────────────────────────────
-function DonutChart() {
+function DonutChart({ stats }) {
+  const total =
+    stats.images_processed +
+    stats.audio_processed +
+    stats.video_processed;
+
   const segments = [
-    { label: "Images", value: "1.2 GB", color: "#6C63FF", pct: 0.49 },
-    { label: "Audio",  value: "0.8 GB", color: "#A78BFA", pct: 0.33 },
-    { label: "Videos", value: "0.45 GB",color: "#06B6D4", pct: 0.18 },
+    {
+      label: "Images",
+      value: stats.images_processed,
+      color: "#6C63FF",
+      pct: total ? stats.images_processed / total : 0,
+    },
+    {
+      label: "Audio",
+      value: stats.audio_processed,
+      color: "#A78BFA",
+      pct: total ? stats.audio_processed / total : 0,
+    },
+    {
+      label: "Videos",
+      value: stats.video_processed,
+      color: "#06B6D4",
+      pct: total ? stats.video_processed / total : 0,
+    },
   ];
 
-  const r     = 52;
-  const cx    = 68;
-  const cy    = 68;
-  const sw    = 16;
-  const circ  = 2 * Math.PI * r;
-  let   gap   = 0; // cumulative offset in [0,1]
+  const r = 58;
+  const cx = 68;
+  const cy = 68;
+  const sw = 20;
+  const circ = 2 * Math.PI * r;
+  let gap = 0; // cumulative offset in [0,1]
 
   return (
     <div className={styles.donutWrap}>
@@ -133,8 +147,8 @@ function DonutChart() {
         <circle cx={cx} cy={cy} r={r} fill="none" stroke="#1e293b" strokeWidth={sw} />
         {/* Segments */}
         {segments.map((s) => {
-          const dash   = s.pct * circ;
-          const rest   = circ - dash;
+          const dash = s.pct * circ;
+          const rest = circ - dash;
           const offset = -(gap * circ - circ / 4); // start from top
           gap += s.pct;
           return (
@@ -151,8 +165,25 @@ function DonutChart() {
           );
         })}
         {/* Centre labels */}
-        <text x={cx} y={cy - 6}  textAnchor="middle" fill="#ffffff" fontSize="15" fontWeight="700">2.45</text>
-        <text x={cx} y={cy + 10} textAnchor="middle" fill="#94a3b8" fontSize="10">GB Used</text>
+        <text
+          x={cx}
+          y={cy - 6}
+          textAnchor="middle"
+          fill="#0F172A"
+          fontSize="15"
+          fontWeight="700"
+        >
+          {total}
+        </text>
+        <text
+          x={cx}
+          y={cy + 10}
+          textAnchor="middle"
+          fill="#35465e"
+          fontSize="10"
+        >
+          Files
+        </text>
       </svg>
 
       <div className={styles.donutLegend}>
@@ -170,12 +201,67 @@ function DonutChart() {
 
 // ── Dashboard ─────────────────────────────────────────────────────────────────
 export default function Dashboard() {
-  const [activeNav,    setActiveNav]    = useState("dashboard");
-  const [sidebarOpen,  setSidebarOpen]  = useState(true);
+  const [activeNav, setActiveNav] = useState("dashboard");
+  const [sidebarOpen, setSidebarOpen] = useState(true);
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
+  const [stats, setStats] = useState(null);
+  const [activities, setActivities] = useState([]);
+
+  const username = localStorage.getItem("username");
+  const email = localStorage.getItem("email");
+  const role = localStorage.getItem("role");
+  const userId = localStorage.getItem("user_id");
+
+  useEffect(() => {
+
+    const fetchDashboardData = async () => {
+
+      try {
+
+        const response = await fetch(
+          `http://127.0.0.1:5000/dashboard/stats/${userId}`
+        );
+
+        const data = await response.json();
+
+        if (data.success) {
+          setStats(data);
+          setActivities(data.activities);
+        }
+
+      } catch (error) {
+        console.error("Dashboard fetch failed:", error);
+      }
+
+    };
+
+    fetchDashboardData();
+
+  }, [userId]);
+
+  const handleLogout = async () => {
+
+    try {
+
+      await fetch("http://127.0.0.1:5000/auth/logout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          user_id: localStorage.getItem("user_id"),
+          username: localStorage.getItem("username"),
+          email: localStorage.getItem("email"),
+          role: localStorage.getItem("role")
+        })
+      });
+
+    } catch (error) {
+      console.error("Logout logging failed:", error);
+    }
+
+    localStorage.clear();
     navigate("/login");
   };
 
@@ -300,73 +386,132 @@ export default function Dashboard() {
             <div className={styles.card}>
               <h3 className={styles.cardTitle}>Statistics Overview</h3>
               <div className={styles.statsRow}>
-                {STATS.map((s) => (
-                  <div key={s.label} className={styles.statBox}>
-                    <div className={styles.statLabel}>{s.label}</div>
-                    <div className={styles.statValue} style={{ color: s.color }}>
-                      {s.value}
-                    </div>
-                    <div className={styles.statDelta}>↑ {s.delta}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Usage donut */}
-            <div className={styles.card}>
-              <h3 className={styles.cardTitle}>Usage Overview</h3>
-              <DonutChart />
-            </div>
-          </div>
-
-          {/* ── Recent Activities + Security ── */}
-          <div className={styles.grid2}>
-            {/* Recent */}
-            <div className={styles.card}>
-              <div className={styles.recentHeader}>
-                <h3 className={styles.cardTitle} style={{ margin: 0 }}>Recent Activities</h3>
-                <Link to="/history" className={styles.viewAllLink}>View All</Link>
-              </div>
-              <table className={styles.activityTable}>
-                <tbody>
-                  {RECENT_ACTIVITIES.map((a, i) => (
-                    <tr key={i} className={styles.activityRow}>
-                      <td className={styles.activityCell}>
-                        <div className={styles.activityFileWrap}>
-                          <div className={styles.activityIcon}>
-                            <Icon d={a.icon} size={15} color="#6C63FF" />
-                          </div>
-                          <div>
-                            <div className={styles.activityFileName}>{a.file}</div>
-                            <div className={styles.activityFileType}>{a.type}</div>
-                          </div>
-                        </div>
-                      </td>
-                      <td className={styles.activityTime}>{a.time}</td>
-                      <td className={styles.activityStatus}>
-                        <span className={styles.statusBadge}>{a.status}</span>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            {/* Security */}
-            <div className={styles.card}>
-              <h3 className={styles.cardTitle}>Security Status</h3>
-              <div className={styles.securityList}>
-                {SECURITY_ITEMS.map((sec, i) => (
-                  <div key={i} className={styles.securityItem}>
-                    <div className={styles.securityLeft}>
-                      <div className={styles.securityIconWrap}>
-                        <Icon d={sec.icon} size={15} color="#6C63FF" />
+                {stats && (
+                  <>
+                    <div className={styles.statBox}>
+                      <div className={styles.statLabel}>Total Encodes</div>
+                      <div className={styles.statValue}>
+                        {stats.total_encodes}
                       </div>
-                      <span className={styles.securityLabel}>{sec.label}</span>
                     </div>
-                    <span className={styles.securityValue}>{sec.value}</span>
-                  </div>
-                ))}
+
+                    <div className={styles.statBox}>
+                      <div className={styles.statLabel}>Total Decodes</div>
+                      <div className={styles.statValue}>
+                        {stats.total_decodes}
+                      </div>
+                    </div>
+
+                    <div className={styles.statBox}>
+                      <div className={styles.statLabel}>Images Processed</div>
+                      <div className={styles.statValue}>
+                        {stats.images_processed}
+                      </div>
+                    </div>
+
+                    <div className={styles.statBox}>
+                      <div className={styles.statLabel}>Audio Processed</div>
+                      <div className={styles.statValue}>
+                        {stats.audio_processed}
+                      </div>
+                    </div>
+
+                    <div className={styles.statBox}>
+                      <div className={styles.statLabel}>Video Processed</div>
+                      <div className={styles.statValue}>
+                        {stats.video_processed}
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+
+              {/* Usage donut */}
+              <div className={styles.card}>
+                <h3 className={styles.cardTitle}>Usage Overview</h3>
+                {stats && <DonutChart stats={stats} />}
+              </div>
+            </div>
+
+            {/* ── Recent Activities + Security ── */}
+            <div className={styles.rightSection}>
+              {/* Recent */}
+              <div className={styles.card}>
+                <div className={styles.recentHeader}>
+                  <h3 className={styles.cardTitle} style={{ margin: 0 }}>Recent Activities</h3>
+                  <Link to="/history" className={styles.viewAllLink}>View All</Link>
+                </div>
+                <table className={styles.activityTable}>
+                  <tbody>
+                    {activities.map((activity, index) => (
+                      <tr key={index} className={styles.activityRow}>
+                        <td className={styles.activityCell}>
+                          <div className={styles.activityFileWrap}>
+
+                            <div className={styles.activityIcon}>
+                              <Icon
+                                d={
+                                  activity.file_type === "image"
+                                    ? ICONS.image
+                                    : activity.file_type === "audio"
+                                      ? ICONS.audio
+                                      : ICONS.video
+                                }
+                                size={15}
+                                color="#6C63FF"
+                              />
+                            </div>
+
+                            <div>
+                              <div className={styles.activityFileName}>
+                                {activity.operation.toUpperCase()}
+                              </div>
+
+                              <div className={styles.activityFileType}>
+                                {activity.file_type}
+                              </div>
+                            </div>
+
+                          </div>
+                        </td>
+
+                        <td className={styles.activityTime}>
+                          {new Date(activity.timestamp).toLocaleString("en-US", {
+                            month: "short",
+                            day: "numeric",
+                            hour: "numeric",
+                            minute: "2-digit"
+                          })}
+                        </td>
+
+                        <td className={styles.activityStatus}>
+                          <span className={styles.statusBadge}>
+                            Success
+                          </span>
+                        </td>
+
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Security */}
+              <div className={styles.card}>
+                <h3 className={styles.cardTitle}>Security Status</h3>
+                <div className={styles.securityList}>
+                  {SECURITY_ITEMS.map((sec, i) => (
+                    <div key={i} className={styles.securityItem}>
+                      <div className={styles.securityLeft}>
+                        <div className={styles.securityIconWrap}>
+                          <Icon d={sec.icon} size={15} color="#6C63FF" />
+                        </div>
+                        <span className={styles.securityLabel}>{sec.label}</span>
+                      </div>
+                      <span className={styles.securityValue}>{sec.value}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
