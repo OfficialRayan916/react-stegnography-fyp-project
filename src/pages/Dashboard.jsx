@@ -209,7 +209,6 @@ export default function Dashboard() {
   const [activities, setActivities] = useState([]);
 
   const username = localStorage.getItem("username");
-  const email = localStorage.getItem("email");
   const role = localStorage.getItem("role");
   const userId = localStorage.getItem("user_id");
 
@@ -343,8 +342,8 @@ export default function Dashboard() {
                 className={styles.avatarImg}
               />
               <div>
-                <div className={styles.avatarName}>John Doe</div>
-                <div className={styles.avatarRole}>Pro Member</div>
+                <div className={styles.avatarName}>{username}</div>
+                <div className={styles.avatarRole}>{role}</div>
               </div>
             </div>
           </div>

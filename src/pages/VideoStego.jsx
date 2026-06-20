@@ -25,9 +25,6 @@ function VideoStego() {
 
     const fileInputRef = useRef(null);
 
-    const isAvi =
-        videoFile?.name?.toLowerCase().endsWith(".avi");
-
     // RESET VIDEO WHEN MODE CHANGES
     useEffect(() => {
         setSelectedVideo(null);
@@ -52,6 +49,7 @@ function VideoStego() {
 
     const removeVideo = () => {
         setSelectedVideo(null);
+        setVideoFile(null);
 
         if (fileInputRef.current) {
             fileInputRef.current.value = "";
@@ -304,7 +302,7 @@ function VideoStego() {
 
                                         link.href = encodedVideo;
 
-                                        link.download = "encoded_video.mp4";
+                                        link.download = "encoded_video.avi";
 
                                         link.click();
                                     }}
@@ -321,6 +319,8 @@ function VideoStego() {
                                 type="password"
                                 className={Styles.input}
                                 placeholder="Enter password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                             />
 
                             <button
