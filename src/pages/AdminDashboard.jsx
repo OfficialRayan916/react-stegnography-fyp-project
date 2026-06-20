@@ -254,7 +254,7 @@ export default function AdminDashboard() {
     let cancelled = false;
     const fetchAdminData = async () => {
       try {
-        const response = await fetch(`hhttps://hidecrypt-backend.onrender.com//admin/dashboard/admin-stats`);
+        const response = await fetch(`https://hidecrypt-backend.onrender.com///admin/dashboard/admin-stats`);
         const data = await response.json();
         if (!cancelled && data.success) {
           setStats(data);
@@ -278,7 +278,7 @@ export default function AdminDashboard() {
 
   const handleLogout = async () => {
     try {
-      await fetch("hhttps://hidecrypt-backend.onrender.com//auth/logout", {
+      await fetch("https://hidecrypt-backend.onrender.com///auth/logout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -36,7 +36,7 @@ function Login() {
 
         try {
             console.log("Sending login request:", formData);
-            const response = await fetch("hhttps://hidecrypt-backend.onrender.com//auth/admin-login", {
+            const response = await fetch("https://hidecrypt-backend.onrender.com///auth/admin-login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
