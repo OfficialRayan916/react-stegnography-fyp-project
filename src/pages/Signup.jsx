@@ -41,7 +41,7 @@ function Signup() {
         setError("");
 
         try {
-            const response = await fetch("https://hidecrypt-backend.onrender.com///auth/register", {
+            const response = await fetch("https://hidecrypt-backend.onrender.com/auth/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
