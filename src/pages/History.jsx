@@ -4,33 +4,34 @@ import styles from './History.module.css';
 
 
 const History = () => {
-  
 
-  
+
+
   const [historyData, setHistoryData] = useState([]);
-  
+
   const userId = localStorage.getItem("user_id");
 
   useEffect(() => {
-    fetchHistory();
-  }, []);
 
-  const fetchHistory = async () => {
-    try {
-      const response = await fetch(
-        `http://127.0.0.1:5000/history/${userId}`
-      );
+    const fetchHistory = async () => {
+      try {
+        const response = await fetch(
+          `http://127.0.0.1:5000/history/${userId}`
+        );
 
-      const data = await response.json();
+        const data = await response.json();
 
-      if (data.success) {
-        setHistoryData(data.logs);
+        if (data.success) {
+          setHistoryData(data.logs);
+        }
+
+      } catch (error) {
+        console.error(error);
       }
+    };
 
-    } catch (error) {
-      console.error(error);
-    }
-  };
+    fetchHistory();
+  }, [userId]);
 
   return (
     <div className={styles.container}>
@@ -83,7 +84,7 @@ const History = () => {
           <h1>History</h1>
           <div className={styles.tabs}>
             <button className={`${styles.tab} ${styles.tabActive}`}>History</button>
-            
+
             <button className={styles.reportBtn}>
               <i className="ti ti-download" aria-hidden="true"></i>
               Export Report
@@ -96,7 +97,7 @@ const History = () => {
             <thead>
               <tr>
                 <th>Date</th>
-                
+
                 <th>File Name</th>
                 <th>File Type</th>
                 <th>Action</th>
@@ -110,7 +111,7 @@ const History = () => {
                   <td>
                     {new Date(item.timestamp).toLocaleString()}
                   </td>
-                 
+
                   <td className={styles.fileName}>
                     {item.file_name || "N/A"}
                   </td>
