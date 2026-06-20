@@ -16,7 +16,7 @@ const History = () => {
     const fetchHistory = async () => {
       try {
         const response = await fetch(
-          `https://web-production-2a8cd.up.railway.app/history/${userId}`
+          `hhttps://hidecrypt-backend.onrender.com//history/${userId}`
         );
 
         const data = await response.json();

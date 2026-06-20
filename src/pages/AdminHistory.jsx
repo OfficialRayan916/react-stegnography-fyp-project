@@ -20,7 +20,7 @@ const AdminHistory = () => {
     const fetchHistory = async () => {
         try {
             const response = await fetch(
-                "https://web-production-2a8cd.up.railway.app/admin/all-history"
+                "hhttps://hidecrypt-backend.onrender.com//admin/all-history"
             );
 
             const data = await response.json();

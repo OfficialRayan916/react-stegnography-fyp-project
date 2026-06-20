@@ -90,7 +90,7 @@ function ImageStego() {
             formData.append("username", user.username);
 
             const response = await fetch(
-                "https://web-production-2a8cd.up.railway.app/image/encode",
+                "hhttps://hidecrypt-backend.onrender.com//image/encode",
                 {
                     method: "POST",
                     body: formData
@@ -157,7 +157,7 @@ function ImageStego() {
             formData.append("username", user.username);
 
             const response = await fetch(
-                "https://web-production-2a8cd.up.railway.app/image/decode",
+                "hhttps://hidecrypt-backend.onrender.com//image/decode",
                 {
                     method: "POST",
                     body: formData

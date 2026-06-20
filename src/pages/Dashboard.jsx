@@ -219,7 +219,7 @@ export default function Dashboard() {
       try {
 
         const response = await fetch(
-          `https://web-production-2a8cd.up.railway.app/dashboard/stats/${userId}`
+          `hhttps://hidecrypt-backend.onrender.com//dashboard/stats/${userId}`
         );
 
         const data = await response.json();
@@ -243,7 +243,7 @@ export default function Dashboard() {
 
     try {
 
-      await fetch("https://web-production-2a8cd.up.railway.app/auth/logout", {
+      await fetch("hhttps://hidecrypt-backend.onrender.com//auth/logout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

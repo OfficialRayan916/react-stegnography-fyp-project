@@ -80,7 +80,7 @@ function VideoStego() {
         try {
 
             const response = await fetch(
-                "https://web-production-2a8cd.up.railway.app/video/encode",
+                "hhttps://hidecrypt-backend.onrender.com//video/encode",
                 {
                     method: "POST",
                     body: formData
@@ -132,7 +132,7 @@ function VideoStego() {
         try {
 
             const response = await fetch(
-                "https://web-production-2a8cd.up.railway.app/video/decode",
+                "hhttps://hidecrypt-backend.onrender.com//video/decode",
                 {
                     method: "POST",
                     body: formData
