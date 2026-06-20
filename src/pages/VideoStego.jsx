@@ -80,7 +80,7 @@ function VideoStego() {
         try {
 
             const response = await fetch(
-                "http://127.0.0.1:5000/video/encode",
+                "https://web-production-2a8cd.up.railway.app/video/encode",
                 {
                     method: "POST",
                     body: formData
@@ -132,7 +132,7 @@ function VideoStego() {
         try {
 
             const response = await fetch(
-                "http://127.0.0.1:5000/video/decode",
+                "https://web-production-2a8cd.up.railway.app/video/decode",
                 {
                     method: "POST",
                     body: formData

@@ -20,7 +20,7 @@ const AdminHistory = () => {
     const fetchHistory = async () => {
         try {
             const response = await fetch(
-                "http://127.0.0.1:5000/admin/all-history"
+                "https://web-production-2a8cd.up.railway.app/admin/all-history"
             );
 
             const data = await response.json();

@@ -90,7 +90,7 @@ function ImageStego() {
             formData.append("username", user.username);
 
             const response = await fetch(
-                "http://127.0.0.1:5000/image/encode",
+                "https://web-production-2a8cd.up.railway.app/image/encode",
                 {
                     method: "POST",
                     body: formData
@@ -157,7 +157,7 @@ function ImageStego() {
             formData.append("username", user.username);
 
             const response = await fetch(
-                "http://127.0.0.1:5000/image/decode",
+                "https://web-production-2a8cd.up.railway.app/image/decode",
                 {
                     method: "POST",
                     body: formData

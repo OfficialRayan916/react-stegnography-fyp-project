@@ -219,7 +219,7 @@ export default function Dashboard() {
       try {
 
         const response = await fetch(
-          `http://127.0.0.1:5000/dashboard/stats/${userId}`
+          `https://web-production-2a8cd.up.railway.app/dashboard/stats/${userId}`
         );
 
         const data = await response.json();
@@ -243,7 +243,7 @@ export default function Dashboard() {
 
     try {
 
-      await fetch("http://127.0.0.1:5000/auth/logout", {
+      await fetch("https://web-production-2a8cd.up.railway.app/auth/logout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

@@ -94,7 +94,7 @@ function AudioStego() {
             formData.append("username", user.username);
 
             const response = await fetch(
-                "http://127.0.0.1:5000/audio/encode",
+                "https://web-production-2a8cd.up.railway.app/audio/encode",
                 {
                     method: "POST",
                     body: formData
@@ -160,7 +160,7 @@ function AudioStego() {
             formData.append("username", user.username);
 
             const response = await fetch(
-                "http://127.0.0.1:5000/audio/decode",
+                "https://web-production-2a8cd.up.railway.app/audio/decode",
                 {
                     method: "POST",
                     body: formData
