@@ -352,6 +352,41 @@
     color: black;
 }
 
+.decodeFileBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+.decodeVideoIcon {
+    font-size: 90px !important;
+    color: #2563EB;
+
+    margin-bottom: 15px;
+}
+
+.decodeFileBox h3 {
+    color: #111827;
+    margin-bottom: 8px;
+}
+
+.decodeFileBox p {
+    color: #374151;
+    font-size: 14px;
+
+    word-break: break-all;
+    margin-bottom: 6px;
+}
+
+.decodeFileBox span {
+    color: #10B981;
+    font-size: 13px;
+    font-weight: 600;
+}
+
 @keyframes spin {
     from {
         transform: rotate(0deg);

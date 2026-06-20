@@ -7,6 +7,7 @@ import Footer from '../components/Footer'
 import MovieCreationIcon from "@mui/icons-material/MovieCreation";
 import CloudUploadRoundedIcon from "@mui/icons-material/CloudUploadRounded";
 import CloseIcon from "@mui/icons-material/Close";
+import VideoFileIcon from "@mui/icons-material/VideoFile";
 
 function VideoStego() {
 
@@ -22,8 +23,10 @@ function VideoStego() {
 
     const [loading, setLoading] = useState(false);
 
-
     const fileInputRef = useRef(null);
+
+    const isAvi =
+        videoFile?.name?.toLowerCase().endsWith(".avi");
 
     // RESET VIDEO WHEN MODE CHANGES
     useEffect(() => {
@@ -215,12 +218,30 @@ function VideoStego() {
                         )}
 
                         {selectedVideo ? (
-                            <video
-                                src={selectedVideo}
-                                controls
-                                className={Styles.previewMedia}
-                            />
+
+                            mode === "decode" ? (
+                                <div className={Styles.decodeFileBox}>
+                                    <VideoFileIcon className={Styles.decodeVideoIcon} />
+
+                                    <h3>Video Uploaded</h3>
+
+                                    <p>{videoFile?.name}</p>
+
+                                    <span>Ready for decoding</span>
+                                </div>
+
+                            ) : (
+
+                                <video
+                                    src={selectedVideo}
+                                    controls
+                                    className={Styles.previewMedia}
+                                />
+
+                            )
+
                         ) : (
+
                             <>
                                 <CloudUploadRoundedIcon className={Styles.uploadIcon} />
                                 <h3>
