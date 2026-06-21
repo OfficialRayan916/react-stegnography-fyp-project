@@ -90,7 +90,7 @@ function ImageStego() {
             formData.append("username", user.username);
 
             const response = await fetch(
-                "https://hidecrypt-backend.onrender.com/image/encode",
+                "http://127.0.0.1:5000/image/encode",
                 {
                     method: "POST",
                     body: formData
@@ -157,7 +157,7 @@ function ImageStego() {
             formData.append("username", user.username);
 
             const response = await fetch(
-                "https://hidecrypt-backend.onrender.com/image/decode",
+                "http://127.0.0.1:5000/image/decode",
                 {
                     method: "POST",
                     body: formData
