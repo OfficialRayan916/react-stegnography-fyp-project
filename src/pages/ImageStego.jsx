@@ -164,7 +164,7 @@ function ImageStego() {
                 }
             );
 
-            const data = await response.json();
+            const data = await response.json(); 
 
             if (data.success) {
                 setDecodedMessage(data.message);
