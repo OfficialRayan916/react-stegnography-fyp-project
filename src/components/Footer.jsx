@@ -76,7 +76,7 @@ function footer() {
                 </div>
             </div>
 
-            <div className={Styles.bottom}>
+            <div className={Styles.bottom}> 
                 <p>© 2026 HideCrypt. All Rights Reserved.</p>
 
                 <div>
@@ -90,4 +90,4 @@ function footer() {
 };
 
 
-export default footer
+export default footere

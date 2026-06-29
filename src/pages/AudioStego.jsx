@@ -94,7 +94,7 @@ function AudioStego() {
             formData.append("username", user.username);
 
             const response = await fetch(
-                "http://127.0.0.1:5000/audio/encode",
+                "https://hidecrypt-backend.onrender.com/audio/encode",
                 {
                     method: "POST",
                     body: formData
@@ -160,7 +160,7 @@ function AudioStego() {
             formData.append("username", user.username);
 
             const response = await fetch(
-                "http://127.0.0.1:5000/audio/decode",
+                "https://hidecrypt-backend.onrender.com/audio/decode",
                 {
                     method: "POST",
                     body: formData

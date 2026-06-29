@@ -80,7 +80,7 @@ function VideoStego() {
         try {
 
             const response = await fetch(
-                "http://127.0.0.1:5000/video/encode",
+                "https://hidecrypt-backend.onrender.com/video/encode",
                 {
                     method: "POST",
                     body: formData
@@ -132,7 +132,7 @@ function VideoStego() {
         try {
 
             const response = await fetch(
-                "http://127.0.0.1:5000/video/decode",
+                "https://hidecrypt-backend.onrender.com/video/decode",
                 {
                     method: "POST",
                     body: formData
