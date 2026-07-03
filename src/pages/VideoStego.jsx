@@ -22,6 +22,7 @@ function VideoStego() {
     const [decodedMessage, setDecodedMessage] = useState("");
 
     const [loading, setLoading] = useState(false);
+    const [loadingText, setLoadingText] = useState("Encoding Video...");
 
     const fileInputRef = useRef(null);
 
@@ -63,6 +64,7 @@ function VideoStego() {
             return;
         }
 
+        setLoadingText("Encoding Video...");
         setLoading(true);
 
         const formData = new FormData();
@@ -80,7 +82,7 @@ function VideoStego() {
         try {
 
             const response = await fetch(
-                "https://hidecrypt-backend.onrender.com/video/encode",
+                "http://127.0.0.1:5000/video/encode",
                 {
                     method: "POST",
                     body: formData
@@ -118,6 +120,9 @@ function VideoStego() {
             return;
         }
 
+        setLoadingText("Decoding Video...");
+        setLoading(true);
+
         const formData = new FormData();
 
         const user_id = localStorage.getItem("user_id");
@@ -132,7 +137,7 @@ function VideoStego() {
         try {
 
             const response = await fetch(
-                "https://hidecrypt-backend.onrender.com/video/decode",
+                "http://127.0.0.1:5000/video/decode",
                 {
                     method: "POST",
                     body: formData
@@ -153,6 +158,10 @@ function VideoStego() {
             console.error(error);
 
             alert("Decode failed");
+
+        } finally {
+
+            setLoading(false);
         }
     };
 
@@ -165,8 +174,14 @@ function VideoStego() {
                 <div className={Styles.loaderOverlay}>
                     <div className={Styles.loaderBox}>
                         <div className={Styles.spinner}></div>
-                        <h3 className={Styles.spinnerHead}>Encoding Video...</h3>
-                        <p className={Styles.spinnerPara}>Please wait while HideCrypt secures your data.</p>
+                        <h3 className={Styles.spinnerHead}>{loadingText}</h3>
+
+                        <p className={Styles.spinnerPara}>
+                            {loadingText === "Encoding Video..."
+                                ? "Please wait while HideCrypt secures your data."
+                                : "Please wait while HideCrypt extracts your hidden message."
+                            }
+                        </p>
                     </div>
                 </div>
             )}

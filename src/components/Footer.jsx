@@ -90,4 +90,4 @@ function footer() {
 };
 
 
-export default footere
+export default footer

@@ -15,6 +15,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import History from "./pages/History";
 import AdminHistory from "./pages/AdminHistory";
 import AdminLogin from "./pages/AdminLogin";
+import AdminUser from "./pages/AdminUser";
 
 
 function App() {
@@ -52,6 +53,15 @@ function App() {
           element={
             <ProtectedRoute allowedRoles={["admin"]}>
               <AdminHistory />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="//admin-user"
+          element={
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <AdminUser />
             </ProtectedRoute>
           }
         />
