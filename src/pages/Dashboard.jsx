@@ -101,8 +101,8 @@ const TOOL_CARDS = [
 const SECURITY_ITEMS = [
   { label: "Encryption", value: "AES-256", icon: ICONS.shield },
   { label: "Password Protection", value: "Enabled", icon: ICONS.lock },
-  { label: "Last Login", value: "2 min ago", icon: ICONS.check },
-  { label: "Active Sessions", value: "1 Session", icon: ICONS.profile },
+  { label: "Role", value: "User", icon: ICONS.check },
+  { label: "Stego Technique", value: "LSB", icon: ICONS.profile },
 ];
 
 // ── Donut Chart (pure SVG) ────────────────────────────────────────────────────

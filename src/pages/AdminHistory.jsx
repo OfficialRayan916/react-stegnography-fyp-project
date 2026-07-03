@@ -94,12 +94,10 @@ const AdminHistory = () => {
             <main className={styles.mainContent}>
                 <div className={styles.header}>
                     <h1>Admin History</h1>
-                    <div className={styles.tabs}>
-                        <button className={`${styles.tab} ${styles.tabActive}`}>History</button>
 
-                        <button className={styles.reportBtn}>
-                            <i className="ti ti-download" aria-hidden="true"></i>
-                            Export Report
+                    <div className={styles.tabs}>
+                        <button className={`${styles.tab} ${styles.tabActive}`}>
+                            History
                         </button>
                     </div>
                 </div>

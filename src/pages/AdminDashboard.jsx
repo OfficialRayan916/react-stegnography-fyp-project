@@ -27,8 +27,6 @@ const ICONS = {
   video: "M15 10l4.553-2.07A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.94L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z",
   history: "M12 8v4l3 3M3.05 11a9 9 0 1017.9 0",
   settings: "M12 15a3 3 0 100-6 3 3 0 000 6z M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06A1.65 1.65 0 004.6 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.6a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09c0 .68.39 1.29 1 1.51.62.26 1.34.13 1.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06c-.46.48-.59 1.2-.33 1.82.22.61.83 1 1.51 1H21a2 2 0 010 4h-.09c-.68 0-1.29.39-1.51 1z",
-  search: "M11 19a8 8 0 100-16 8 8 0 000 16zM21 21l-4.35-4.35",
-  bell: "M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0",
   logout: "M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9",
   shield: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z",
   server: "M22 12.5V8a2 2 0 00-2-2H4a2 2 0 00-2 2v4.5M22 12.5V16a2 2 0 01-2 2H4a2 2 0 01-2-2v-3.5M22 12.5H2M6 6.5h.01M6 14.5h.01",
@@ -47,19 +45,14 @@ const NAV_ITEMS = [
   { key: "audiostego", label: "Audio Stegnography", icon: ICONS.audio, to: "/audioStego" },
   { key: "videostego", label: "Video Stegnography", icon: ICONS.video, to: "/videoStego" },
   { key: "history", label: "History", icon: ICONS.history, to: "/admin-history" },
-  { key: "settings", label: "Settings", icon: ICONS.settings, to: "/admin/settings" },
+
 ];
 
-const QUICK_ACTIONS = [
-  { label: "Export Report", sub: "Download CSV summary", icon: ICONS.download },
-  { label: "Flag Review Queue", sub: "3 items pending", icon: ICONS.flag },
-  { label: "System Health", sub: "All systems normal", icon: ICONS.server },
-];
 
 const SECURITY_ITEMS = [
   { label: "Encryption", value: "AES-256", icon: ICONS.shield },
-  { label: "Failed Logins (24h)", value: "2", icon: ICONS.alert },
-  { label: "Server Uptime", value: "99.98%", icon: ICONS.server },
+  { label: "Stego Technique", value: "LSB", icon: ICONS.alert },
+  { label: "Role", value: "Admin", icon: ICONS.server },
 ];
 
 // ── Mock fallback data (used if API not reachable) ───────────────────────────
@@ -170,6 +163,10 @@ function DonutChart({ stats }) {
     { label: "Audio", value: stats.audio_processed, color: "#7c3aed" },
     { label: "Videos", value: stats.video_processed, color: "#38bdf8" },
   ];
+
+  const getPercentage = (value) =>
+    total > 0 ? ((value / total) * 100).toFixed(1) : 0;
+
   const r = 62;
   const cx = 80;
   const cy = 80;
@@ -202,11 +199,25 @@ function DonutChart({ stats }) {
             />
           );
         })}
-        <text x={cx} y={cy - 6} textAnchor="middle" fill="#0f172a" fontSize="20" fontWeight="800">
-          {total}%
+        <text
+          x={cx}
+          y={cy - 5}
+          textAnchor="middle"
+          fontSize="22"
+          fontWeight="700"
+          fill="#0f172a"
+        >
+          {total}
         </text>
-        <text x={cx} y={cy + 14} textAnchor="middle" fill="#94a3b8" fontSize="11">
-          Total Files
+
+        <text
+          x={cx}
+          y={cy + 16}
+          textAnchor="middle"
+          fontSize="11"
+          fill="#94a3b8"
+        >
+          Processed Files
         </text>
       </svg>
       <div className={styles.donutLegend}>
@@ -214,7 +225,7 @@ function DonutChart({ stats }) {
           <div key={s.label} className={styles.donutLegendItem}>
             <span className={styles.donutDot} style={{ background: s.color }} />
             <span className={styles.donutLegendLabel}>{s.label}</span>
-            <span className={styles.donutLegendValue}>{s.value}%</span>
+            <span className={styles.donutLegendValue}>{getPercentage(s.value)}%</span>
           </div>
         ))}
       </div>
@@ -244,7 +255,6 @@ export default function AdminDashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [stats, setStats] = useState(null);
   const [activities, setActivities] = useState([]);
-  const [search, setSearch] = useState("");
   const navigate = useNavigate();
 
   const adminName = (typeof window !== "undefined" && localStorage.getItem("username")) || "Admin User";
@@ -295,16 +305,7 @@ export default function AdminDashboard() {
     navigate("/login");
   };
 
-  const filteredActivities = useMemo(() => {
-    if (!search.trim()) return activities;
-    const q = search.toLowerCase();
-    return activities.filter(
-      (a) =>
-        a.user?.toLowerCase().includes(q) ||
-        a.email?.toLowerCase().includes(q) ||
-        a.file_type?.toLowerCase().includes(q)
-    );
-  }, [search, activities]);
+  const filteredActivities = activities;
 
   if (!stats) {
     return (
@@ -373,19 +374,8 @@ export default function AdminDashboard() {
             </div>
           </div>
           <div className={styles.topbarRight}>
-            <div className={styles.searchBox}>
-              <Icon d={ICONS.search} size={15} color="#aab4c4" />
-              <input
-                className={styles.searchInput}
-                placeholder="Search users, files..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-              />
-            </div>
-            <div className={styles.bellWrap}>
-              <Icon d={ICONS.bell} size={18} color="#475569" />
-              <span className={styles.bellDot} />
-            </div>
+
+
             <div className={styles.avatarWrap}>
               <img src={initialsAvatar(adminName)} alt="Admin avatar" className={styles.avatarImg} />
               <div>
@@ -528,34 +518,11 @@ export default function AdminDashboard() {
                       <span className={styles.metricValue}>{sec.value}</span>
                     </div>
                   ))}
-                  <div className={styles.metricFullRow}>
-                    <div className={styles.metricFullTop}>
-                      <span className={styles.metricLabel}>Storage Used</span>
-                      <span className={styles.metricValue}>62%</span>
-                    </div>
-                    <div className={styles.progressTrack}>
-                      <div className={styles.progressFill} style={{ width: "62%" }} />
-                    </div>
-                  </div>
+
                 </div>
               </div>
 
-              <div className={styles.card}>
-                <div className={styles.cardTitle} style={{ marginBottom: 14 }}>Quick Actions</div>
-                <div className={styles.quickActions}>
-                  {QUICK_ACTIONS.map((qa, i) => (
-                    <div key={i} className={styles.quickActionBtn} role="button" tabIndex={0}>
-                      <div className={styles.quickActionIcon}>
-                        <Icon d={qa.icon} size={16} color="#2563eb" />
-                      </div>
-                      <div>
-                        <div className={styles.quickActionLabel}>{qa.label}</div>
-                        <div className={styles.quickActionSub}>{qa.sub}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+
             </div>
           </div>
         </div>

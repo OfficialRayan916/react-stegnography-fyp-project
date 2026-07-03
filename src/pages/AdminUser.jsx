@@ -28,8 +28,6 @@ const ICONS = {
     history: "M12 8v4l3 3M3.05 11a9 9 0 1017.9 0",
     settings: "M12 15a3 3 0 100-6 3 3 0 000 6z M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06A1.65 1.65 0 004.6 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.6a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09c0 .68.39 1.29 1 1.51.62.26 1.34.13 1.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06c-.46.48-.59 1.2-.33 1.82.22.61.83 1 1.51 1H21a2 2 0 010 4h-.09c-.68 0-1.29.39-1.51 1z",
     search: "M11 19a8 8 0 100-16 8 8 0 000 16zM21 21l-4.35-4.35",
-    plus: "M12 5v14M5 12h14",
-    more: "M12 12h.01M12 6h.01M12 18h.01",
     chevronRight: "M9 18l6-6-6-6",
 };
 
@@ -160,13 +158,8 @@ export default function AdminUsers() {
                                     onChange={(e) => setSearch(e.target.value)}
                                 />
                             </div>
-                            <button className={styles.addBtn}>
-                                <Icon d={ICONS.plus} size={15} color="#0f172a" />
-                                Add
-                            </button>
-                            <button className={styles.moreBtn}>
-                                <Icon d={ICONS.more} size={18} color="#475569" />
-                            </button>
+
+
                         </div>
                     </div>
 
@@ -185,11 +178,25 @@ export default function AdminUsers() {
                     <div className={styles.tableCard}>
 
                         <div className={`${styles.tableRow} ${styles.tableHeadRow}`}>
-                            <div className={styles.colUser}>User</div>
-                            <div className={styles.colId}>ID</div>
-                            <div className={styles.colNum}>Enc.</div>
-                            <div className={styles.colNum}>Dec.</div>
-                            <div className={styles.colRatio}>Ratio</div>
+                            <div className={`${styles.colUser} ${styles.headerCell}`}>User</div>
+
+                            <div className={`${styles.colId} ${styles.headerCell}`}>
+                                ID
+                            </div>
+
+                            <div className={`${styles.colNum} ${styles.headerCell}`}>
+                                Enc.
+                            </div>
+
+                            <div className={`${styles.colNum} ${styles.headerCell}`}>
+                                Dec.
+                            </div>
+
+                            <div className={`${styles.colRatio} ${styles.headerCell}`}>
+                                Ratio
+                            </div>
+
+                            <div className={styles.colChevron}></div>
                             <div className={styles.colChevron} />
                         </div>
 
