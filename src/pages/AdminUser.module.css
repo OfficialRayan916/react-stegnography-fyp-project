@@ -354,6 +354,38 @@
   border-radius: 3px;
 }
 
+/* ── Loader ─────────────────────────────────────────────────────────────  */
+.loadingContainer {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  background: #f4f7fb;
+}
+
+.loader {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #dbeafe;
+  border-top: 6px solid #2563eb;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.loadingText {
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /* ── Responsive ───────────────────────────────────────────────────────────── */
 @media (max-width: 1180px) {
   .statGrid {
