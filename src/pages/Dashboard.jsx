@@ -329,10 +329,7 @@ export default function Dashboard() {
 
           <div className={styles.topbarRight}>
             {/* Bell */}
-            <div className={styles.bellWrap}>
-              <Icon d={ICONS.bell} size={20} color="#94a3b8" />
-              <span className={styles.bellDot} />
-            </div>
+            
 
             {/* Avatar */}
             <div className={styles.avatarWrap}>
