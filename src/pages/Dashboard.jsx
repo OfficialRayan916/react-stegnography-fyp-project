@@ -332,7 +332,7 @@ export default function Dashboard() {
             
 
             {/* Avatar */}
-            <div className={styles.avatarWrap}>  
+            <div className={styles.avatarWrap}> 
               <img
                 src="https://ui-avatars.com/api/?name=John+Doe&background=6C63FF&color=fff&size=36"
                 alt="User avatar"
