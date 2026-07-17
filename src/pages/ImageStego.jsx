@@ -15,7 +15,19 @@ function ImageStego() {
     const [selectedFile, setSelectedFile] = useState(null);
 
     const [secretMessage, setSecretMessage] = useState("");
+    const [payloadType, setPayloadType] = useState("text");
+
+    const [secretImage, setSecretImage] = useState(null);
+    const [secretAudio, setSecretAudio] = useState(null);
+
+    const secretFileInputRef = useRef(null);
+
     const [decodedMessage, setDecodedMessage] = useState("");
+    const [decodedType, setDecodedType] = useState("");
+
+    const [decodedImage, setDecodedImage] = useState(null);
+
+    const [decodedAudio, setDecodedAudio] = useState(null);
     const [loading, setLoading] = useState(false);
     const [encodedImage, setEncodedImage] = useState(null);
 
@@ -57,16 +69,73 @@ function ImageStego() {
         }
     };
 
+    const removeSecretImage = () => {
+
+        setSecretImage(null);
+
+        if (secretFileInputRef.current) {
+            secretFileInputRef.current.value = "";
+        }
+
+    };
+
+    const removeSecretAudio = () => {
+
+        setSecretAudio(null);
+
+        if (secretFileInputRef.current) {
+            secretFileInputRef.current.value = "";
+        }
+
+    };
+
+    const handleSecretFile = (e) => {
+
+        const file = e.target.files[0];
+
+        if (!file) return;
+
+        if (payloadType === "image") {
+            setSecretImage(file);
+            setSecretAudio(null);
+        }
+        else if (payloadType === "audio") {
+            setSecretAudio(file);
+            setSecretImage(null);
+        }
+    };
+
     const handleEncode = async () => {
+
+        setEncodedImage(null);
 
         if (!selectedFile) {
             alert("Please select an image");
             return;
         }
 
-        if (!secretMessage) {
+        if (payloadType === "text" && !secretMessage) {
+
             alert("Please enter a secret message");
+
             return;
+
+        }
+
+        if (payloadType === "image" && !secretImage) {
+
+            alert("Please select a secret image");
+
+            return;
+
+        }
+
+        if (payloadType === "audio" && !secretAudio) {
+
+            alert("Please select a secret audio file");
+
+            return;
+
         }
 
         try {
@@ -83,8 +152,32 @@ function ImageStego() {
             console.log("USER:", user);
 
             formData.append("image", selectedFile);
-            formData.append("message", secretMessage);
+            formData.append("image", selectedFile);
+
+            formData.append("payload_type", payloadType);
+
+            if (payloadType === "text") {
+
+                formData.append("message", secretMessage);
+
+            }
+
+            else if (payloadType === "image") {
+
+                formData.append("secret_image", secretImage);
+
+            }
+
+            else if (payloadType === "audio") {
+
+                formData.append("secret_audio", secretAudio);
+
+            }
+
             formData.append("password", password);
+
+            formData.append("user_id", user.user_id);
+            formData.append("username", user.username);
 
             formData.append("user_id", user.user_id);
             formData.append("username", user.username);
@@ -97,11 +190,26 @@ function ImageStego() {
                 }
             );
 
+            // If the backend returned an error (JSON)
+            if (!response.ok) {
+
+                const errorData = await response.json();
+
+                alert(errorData.message);
+
+                setEncodedImage(null);
+
+                return;
+            }
+
+            // Success → backend returned the encoded image
             const blob = await response.blob();
 
             const url = window.URL.createObjectURL(blob);
 
             setEncodedImage(url);
+
+            setPassword("");
 
 
         } catch (error) {
@@ -166,8 +274,20 @@ function ImageStego() {
 
             const data = await response.json();
 
+            console.log("DECODE RESPONSE:", data);
+
             if (data.success) {
+
+                setDecodedType("text");
+
                 setDecodedMessage(data.message);
+
+                setDecodedImage(null);
+
+                setDecodedAudio(null);
+
+                setDecodePassword("");
+
             } else {
                 alert(data.message);
             }
@@ -243,8 +363,8 @@ function ImageStego() {
                                 <CloudUploadRoundedIcon className={Styles.uploadIcon} />
                                 <h3>
                                     {mode === "encode"
-                                        ? "Upload Image for Encoding"
-                                        : "Upload Image for Decoding"}
+                                        ? "Upload Cover Image"
+                                        : "Upload Encoded Image"}
                                 </h3>
 
                                 <p>Drag & drop or click to browse</p>
@@ -266,18 +386,155 @@ function ImageStego() {
                     {mode === "encode" ? (
                         <div className={Styles.rightPanel}>
 
-                            <textarea
-                                className={Styles.textarea}
-                                placeholder="Enter secret message..."
-                                value={secretMessage}
-                                onChange={(e) => setSecretMessage(e.target.value)}
-                            />
+                            <div className={Styles.payloadToggle}>
 
+                                <button
+                                    className={`${Styles.payloadButton} ${payloadType === "text" ? Styles.activePayload : ""}`}
+                                    onClick={() => setPayloadType("text")}
+                                >
+                                    Text
+                                </button>
+
+                                <button
+                                    className={`${Styles.payloadButton} ${payloadType === "image" ? Styles.activePayload : ""}`}
+                                    onClick={() => setPayloadType("image")}
+                                >
+                                    Image
+                                </button>
+
+                                <button
+                                    className={`${Styles.payloadButton} ${payloadType === "audio" ? Styles.activePayload : ""}`}
+                                    onClick={() => setPayloadType("audio")}
+                                >
+                                    Audio
+                                </button>
+
+                            </div>
+
+                            {payloadType === "text" && (
+
+                                <textarea
+                                    className={Styles.textarea}
+                                    placeholder="Enter secret message..."
+                                    value={secretMessage}
+                                    onChange={(e) => setSecretMessage(e.target.value)}
+                                />
+
+                            )}
+
+                            {payloadType === "image" && (
+
+                                <div className={Styles.secretUploadBox}>
+
+                                    {secretImage && (
+
+                                        <button
+                                            className={Styles.closeBtn}
+                                            onClick={(e) => {
+
+                                                e.stopPropagation();
+
+                                                removeSecretImage();
+
+                                            }}
+                                        >
+                                            <CloseIcon />
+                                        </button>
+
+                                    )}
+
+                                    {secretImage ? (
+
+                                        <img
+                                            src={URL.createObjectURL(secretImage)}
+                                            alt="Secret Preview"
+                                            className={Styles.secretPreview}
+                                        />
+
+                                    ) : (
+
+                                        <>
+                                            <CloudUploadRoundedIcon className={Styles.uploadIcon} />
+
+                                            <h3>Upload Secret Image</h3>
+
+                                            <p>PNG, JPG, JPEG</p>
+                                        </>
+
+                                    )}
+
+                                    <input
+                                        ref={secretFileInputRef}
+                                        type="file"
+                                        accept=".png,.jpg,.jpeg"
+                                        className={Styles.fileInput}
+                                        onChange={handleSecretFile}
+                                    />
+
+                                </div>
+
+                            )}
+
+                            {payloadType === "audio" && (
+
+                                <div className={Styles.secretUploadBox}>
+
+                                    {secretAudio && (
+
+                                        <button
+                                            className={Styles.closeBtn}
+                                            onClick={(e) => {
+
+                                                e.stopPropagation();
+
+                                                removeSecretAudio();
+
+                                            }}
+                                        >
+                                            <CloseIcon />
+                                        </button>
+
+                                    )}
+
+                                    {secretAudio ? (
+
+                                        <audio
+                                            controls
+                                            src={URL.createObjectURL(secretAudio)}
+                                            className={Styles.audioPlayer}
+                                        />
+
+                                    ) : (
+
+                                        <>
+
+                                            <CloudUploadRoundedIcon className={Styles.uploadIcon} />
+
+                                            <h3>Upload Secret Audio</h3>
+
+                                            <p>MP3 • WAV • M4A</p>
+
+                                        </>
+
+                                    )}
+
+                                    <input
+                                        ref={secretFileInputRef}
+                                        type="file"
+                                        accept=".mp3,.wav,.m4a"
+                                        className={Styles.fileInput}
+                                        onChange={handleSecretFile}
+                                    />
+
+                                </div>
+
+                            )}
                             <input
                                 type="password"
                                 className={Styles.input}
                                 placeholder="Password (optional)"
                                 value={password}
+                                autoComplete="new-password"
                                 onChange={(e) => setPassword(e.target.value)}
                             />
 
@@ -310,6 +567,7 @@ function ImageStego() {
                                 className={Styles.input}
                                 placeholder="Enter password"
                                 value={decodePassword}
+                                autoComplete="new-password"
                                 onChange={(e) => setDecodePassword(e.target.value)}
                             />
 
@@ -321,12 +579,78 @@ function ImageStego() {
                                 {loading ? "Decoding..." : "Decode Image"}
                             </button>
 
-                            <textarea
-                                className={Styles.decodedTextarea}
-                                placeholder="Decoded message will appear here..."
-                                value={decodedMessage}
-                                readOnly
-                            />
+                            {decodedType === "text" && (
+
+                                <textarea
+                                    className={Styles.decodedTextarea}
+                                    placeholder="Decoded message will appear here..."
+                                    value={decodedMessage}
+                                    readOnly
+                                />
+
+                            )}
+
+                            {decodedType === "image" && (
+
+                                <div className={Styles.decodedPreviewBox}>
+
+                                    <img
+                                        src={decodedImage}
+                                        alt="Decoded"
+                                        className={Styles.decodedPreview}
+                                    />
+
+                                    <button
+                                        className={Styles.button}
+                                        onClick={() => {
+
+                                            const link = document.createElement("a");
+
+                                            link.href = decodedImage;
+
+                                            link.download = "decoded_image.png";
+
+                                            link.click();
+
+                                        }}
+                                    >
+                                        Download Image
+                                    </button>
+
+                                </div>
+
+                            )}
+
+                            {decodedType === "audio" && (
+
+                                <div className={Styles.decodedPreviewBox}>
+
+                                    <audio
+                                        controls
+                                        src={decodedAudio}
+                                        className={Styles.audioPlayer}
+                                    />
+
+                                    <button
+                                        className={Styles.button}
+                                        onClick={() => {
+
+                                            const link = document.createElement("a");
+
+                                            link.href = decodedAudio;
+
+                                            link.download = "decoded_audio.wav";
+
+                                            link.click();
+
+                                        }}
+                                    >
+                                        Download Audio
+                                    </button>
+
+                                </div>
+
+                            )}
 
                         </div>
                     )}
