@@ -203,6 +203,7 @@
 .rightPanel {
     background: #fff;
     padding: 25px;
+    margin-top: -25px;
 
     display: flex;
     flex-direction: column;
@@ -211,7 +212,7 @@
 
 .textarea {
     width: 100%;
-    height: 270px;
+    height: 220px;
 
     padding: 12px;
 
@@ -387,10 +388,128 @@
     font-weight: 600;
 }
 
+.decodedPreviewBox{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.decodedPreview{
+    width: 100%;
+    max-width: 420px;
+    border-radius: 10px;
+}
+
+/* ================= Secret Payload Toggle ================= */
+
+.payloadToggle {
+
+    display: flex;
+
+    width: 50%;
+
+    margin: 0 auto 5px auto;
+
+    margin-left: 130px;
+
+    background: #10B981;
+
+    border-radius: 999px;
+
+    padding: 3px;
+
+    height: 40px;
+
+}
+
+.payloadButton {
+
+    flex: 1;
+
+    border: none;
+
+    background: transparent;
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    border-radius: 999px;
+
+    transition: .25s;
+
+}
+
+.activePayload {
+    background: white;
+    color: #111827;
+}
+
+/* ================= Secret Upload Box ================= */
+
+.secretUploadBox {
+    position: relative;
+
+    width: 100%;
+    height: 220px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    overflow: hidden;
+
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.secretUploadBox:hover {
+    border-color: #2563EB;
+    background: #F8FAFC;
+}
+
+.secretUploadBox h3 {
+    margin-bottom: 10px;
+    color: #111827;
+}
+
+.secretUploadBox p {
+    color: #6B7280;
+    font-size: 14px;
+}
+
+/* ----------------------------image in image privew toogle-------------------------- */
+
+.secretPreview {
+    width: 90%;
+    height: 100%;
+
+    object-fit: contain;
+
+    border-radius: 12px;
+}
+
+/* ---------------------------- audio in image privew toogle-------------------------- */
+
+.audioPlayer {
+    width: 100%;
+    position: relative;
+    max-width: 420px;
+    z-index: 5;
+}
+
+
 @keyframes spin {
     from {
         transform: rotate(0deg);
     }
+
     to {
         transform: rotate(360deg);
     }

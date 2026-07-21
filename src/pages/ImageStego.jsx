@@ -273,22 +273,79 @@ function ImageStego() {
             );
 
             const data = await response.json();
-
             console.log("DECODE RESPONSE:", data);
+
+            console.log(JSON.stringify(data, null, 2));
 
             if (data.success) {
 
-                setDecodedType("text");
+                if (data.type === "text") {
 
-                setDecodedMessage(data.message);
+                    setDecodedType("text");
 
-                setDecodedImage(null);
+                    setDecodedMessage(data.message);
 
-                setDecodedAudio(null);
+                    setDecodedImage(null);
+
+                    setDecodedAudio(null);
+
+                }
+
+                else if (data.type === "image") {
+
+                    setDecodedType("image");
+
+                    setDecodedMessage("");
+
+                    setDecodedAudio(null);
+
+                    setDecodedImage(
+                        `data:image/${data.extension};base64,${data.image}`
+                    );
+
+                }
+
+                else if (data.type === "audio") {
+
+                    setDecodedType("audio");
+
+                    setDecodedMessage("");
+
+                    setDecodedImage(null);
+
+                    const binary = atob(data.audio);
+
+                    const bytes = new Uint8Array(binary.length);
+
+                    for (let i = 0; i < binary.length; i++) {
+                        bytes[i] = binary.charCodeAt(i);
+                    }
+
+                    let mimeType = "audio/mpeg";
+
+                    if (data.extension === "wav")
+                        mimeType = "audio/wav";
+
+                    else if (data.extension === "m4a")
+                        mimeType = "audio/mp4";
+
+                    else if (data.extension === "aac")
+                        mimeType = "audio/aac";
+
+                    const blob = new Blob([bytes], {
+                        type: mimeType
+                    });
+
+                    const url = URL.createObjectURL(blob);
+
+                    setDecodedAudio(url);
+                }
 
                 setDecodePassword("");
 
-            } else {
+            }
+
+            else {
                 alert(data.message);
             }
 
