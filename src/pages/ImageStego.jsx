@@ -716,7 +716,7 @@ function ImageStego() {
 
             </section>
 
-            <Footer />   
+            <Footer />  
         </>
     )
 }
