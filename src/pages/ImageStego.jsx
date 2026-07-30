@@ -34,7 +34,7 @@ function ImageStego() {
     const [password, setPassword] = useState("");
     const [decodePassword, setDecodePassword] = useState("");
 
-    const fileInputRef = useRef(null);     
+    const fileInputRef = useRef(null);    
 
     // RESET IMAGE WHEN MODE CHANGES
     useEffect(() => {
