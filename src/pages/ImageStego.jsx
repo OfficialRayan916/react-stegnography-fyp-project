@@ -159,7 +159,7 @@ function ImageStego() {
             if (payloadType === "text") {
 
                 formData.append("message", secretMessage);
-
+ 
             }
 
             else if (payloadType === "image") {
