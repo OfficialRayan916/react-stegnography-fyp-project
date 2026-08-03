@@ -423,7 +423,7 @@ function ImageStego() {
                                     {mode === "encode"
                                         ? "Upload Cover Image"
                                         : "Upload Encoded Image"}
-                                </h3>
+                                 </h3>
 
                                 <p>Drag & drop or click to browse</p>
                                 <span>PNG, JPG, JPEG</span>
