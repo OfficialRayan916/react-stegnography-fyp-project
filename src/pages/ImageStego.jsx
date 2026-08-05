@@ -428,7 +428,7 @@ function ImageStego() {
                                 <p>Drag & drop or click to browse</p>
                                 <span>PNG, JPG, JPEG</span>
                             </>
-                        )}    
+                        )}   
 
                         <input
                             ref={fileInputRef}
