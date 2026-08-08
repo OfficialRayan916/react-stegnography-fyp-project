@@ -415,8 +415,8 @@ function ImageStego() {
                                 alt="preview"
                                 className={Styles.previewImage}
                             />
-                            
-                        ) : (
+                             
+                        ) : ( 
                         
                             <>
                                 <CloudUploadRoundedIcon className={Styles.uploadIcon} />
