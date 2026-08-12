@@ -414,7 +414,7 @@ function ImageStego() {
                                 src={selectedImage}
                                 alt="preview"
                                 className={Styles.previewImage}
-                            />   
+                            />  
                              
                         ) : (
                         
