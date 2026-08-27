@@ -416,7 +416,6 @@ function ImageStego() {
                                 className={Styles.previewImage}
                             />
                                  
-                             
                         ) : (
                         
                             <>
