@@ -417,7 +417,7 @@ function ImageStego() {
                             />
                                   
 
-                        ) : (  
+                        ) : ( 
                         
                             <>
                                 <CloudUploadRoundedIcon className={Styles.uploadIcon} />
