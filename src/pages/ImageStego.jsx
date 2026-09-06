@@ -363,6 +363,7 @@ function ImageStego() {
 
 
     return (
+        
         <>
             <Navbar />
 
