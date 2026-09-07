@@ -639,7 +639,9 @@ function VideoStego() {
                             </div>
 
                         </div>
-                    ) : (
+
+                    ) : ( 
+
                         <div className={Styles.rightPanel}>
 
                             <input
