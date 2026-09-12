@@ -416,8 +416,8 @@
 }
 
 .statDeltaUp {
-  color: #16a34a;
-  background: #dcfce7;
+  color: white;
+  background: white;
 }
 
 .statDeltaDown {
@@ -426,7 +426,7 @@
 }
 
 .statDeltaCaption {
-  color: #aab4c4;
+  color: white;
   font-size: 11.5px;
 }
 
