@@ -415,7 +415,7 @@ function VideoStego() {
                                     src={selectedVideo}
                                     controls
                                     className={Styles.previewMedia}
-                                />
+                                /> 
 
                             )
 
