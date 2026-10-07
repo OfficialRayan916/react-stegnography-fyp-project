@@ -415,11 +415,11 @@ function VideoStego() {
                                     src={selectedVideo}
                                     controls
                                     className={Styles.previewMedia}
-                                /> 
+                                />
 
                             )
 
-                        ) : (
+                        ) : ( 
 
                             <>
                                 <CloudUploadRoundedIcon className={Styles.uploadIcon} />
