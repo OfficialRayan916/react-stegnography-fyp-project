@@ -419,7 +419,7 @@ function VideoStego() {
 
                             )
 
-                        ) : (
+                        ) : ( 
 
                             <>
                                 <CloudUploadRoundedIcon className={Styles.uploadIcon} />
